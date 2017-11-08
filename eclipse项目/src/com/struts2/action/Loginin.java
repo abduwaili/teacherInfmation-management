@@ -16,6 +16,9 @@ import com.opensymphony.xwork2.ActionSupport;
 import database.DatabaseConnection;
 import net.sf.json.JSONObject;
 
+/**
+登录
+*/
 public class Loginin extends ActionSupport implements ServletRequestAware{
 	private static final long serialVersionUID = 1L;
 	
