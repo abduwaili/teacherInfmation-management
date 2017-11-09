@@ -109,7 +109,7 @@ public class WebFunction extends ActionSupport implements ServletRequestAware{
 	
 	
 	/**********
-	 * 添加预约教师
+	 * 添加预约教师，添加到预约表数据库
 	 **********/
 	public String addOrder()
 	{
