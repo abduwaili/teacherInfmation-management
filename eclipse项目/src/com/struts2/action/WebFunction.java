@@ -220,7 +220,7 @@ public class WebFunction extends ActionSupport implements ServletRequestAware{
 	
 	
 	/**********
-	 * 学生取消预约
+	 * 学生取消预约功能
 	 **********/
 	public String cancelOrder()
 	{
