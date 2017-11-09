@@ -285,7 +285,7 @@ public class WebFunction extends ActionSupport implements ServletRequestAware{
 	
 	
 	/**********
-	 * 教师增加日程
+	 * 教师增加日程，添加到数据库
 	 **********/
 	public String addSchedule()
 	{
