@@ -401,7 +401,7 @@ public class WebFunction extends ActionSupport implements ServletRequestAware{
 	}
 	
 	/**********
-	 * 教师拒绝预约
+	 * 教师拒绝预约功能
 	 **********/
 	public String teacherCancelOrder()
 	{
