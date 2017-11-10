@@ -316,7 +316,7 @@ public class WebFunction extends ActionSupport implements ServletRequestAware{
 	
 	
 	/**********
-	 * 教师通过预约
+	 * 教师同意预约
 	 **********/
 	public String teacherAgreeOrder()
 	{
