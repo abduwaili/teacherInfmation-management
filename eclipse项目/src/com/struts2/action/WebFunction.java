@@ -455,7 +455,7 @@ public class WebFunction extends ActionSupport implements ServletRequestAware{
 	
 	
 	/*********************
-	 * 随机获取三个老师信息
+	 * 随机获取三个老师信息显示到主页中，可更换
 	 *****************/
 	public String chooseTeacher()
 	{
