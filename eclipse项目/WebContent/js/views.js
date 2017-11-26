@@ -38,7 +38,7 @@ function chooseTeacher() {
                         </div>\
                         <div class="4u" name="t2">\
                             <article class="box box-style2">\
-                                <a class="image image-full" href="' + ret["teacherHref2"] +'">\
+                                <a class="image image-full" href="' + ret["teacherHref2"] +'" >\
                                     <img alt="" src="' + ret["teacherImage2"] +'"/>\
                                 </a>\
                                 <h3>\

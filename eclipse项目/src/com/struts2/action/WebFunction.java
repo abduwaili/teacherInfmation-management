@@ -45,7 +45,7 @@ public class WebFunction extends ActionSupport implements ServletRequestAware{
 
 	
 	
-	/***
+	/**
 	 * 按姓名搜搜教师
 	 */
 	public String SearchTeacher()
@@ -109,7 +109,7 @@ public class WebFunction extends ActionSupport implements ServletRequestAware{
 	
 	
 	/**********
-	 * 学生预约教师
+	 * 添加预约教师
 	 **********/
 	public String addOrder()
 	{
@@ -220,7 +220,7 @@ public class WebFunction extends ActionSupport implements ServletRequestAware{
 	
 	
 	/**********
-	 * 学生取消预约功能
+	 * 学生取消预约
 	 **********/
 	public String cancelOrder()
 	{
@@ -285,7 +285,7 @@ public class WebFunction extends ActionSupport implements ServletRequestAware{
 	
 	
 	/**********
-	 * 教师增加日程，添加到数据库
+	 * 教师增加日程
 	 **********/
 	public String addSchedule()
 	{
@@ -316,7 +316,7 @@ public class WebFunction extends ActionSupport implements ServletRequestAware{
 	
 	
 	/**********
-	 * 教师同意预约
+	 * 教师通过预约
 	 **********/
 	public String teacherAgreeOrder()
 	{
@@ -401,7 +401,7 @@ public class WebFunction extends ActionSupport implements ServletRequestAware{
 	}
 	
 	/**********
-	 * 教师拒绝预约功能
+	 * 教师拒绝预约
 	 **********/
 	public String teacherCancelOrder()
 	{
@@ -455,7 +455,7 @@ public class WebFunction extends ActionSupport implements ServletRequestAware{
 	
 	
 	/*********************
-	 * 随机获取三个老师信息显示到主页中，可更换
+	 * 随机获取三个老师信息
 	 *****************/
 	public String chooseTeacher()
 	{
