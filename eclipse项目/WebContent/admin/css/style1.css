@@ -1,0 +1,46 @@
+@charset "UTF-8";
+*{
+	padding: 0 auto;
+	margin: 0 auto;
+}
+ul li a{
+	text-decoration:none;
+}
+body{
+	text-align: center;
+	margin: 0 auto;
+	padding: 0 auto;
+}
+
+
+
+/* top顶部css*/
+.top{
+	height: 120px;
+	width: 1000px;
+	text-align: center;
+}
+.image1{
+	width: 100px;
+	height: 100px;
+	float: left;
+	margin: 5px 0 5px 0px;
+}
+.logo{
+	margin: 30px auto auto 300px;
+	color: rgba(61,92,35,1);
+	float: left;
+	text-align: left;
+}
+
+
+/* left-frame左部导航框架css*/
+.style1{
+	text-align: left;
+	line-height: 1.5;
+}
+.style1 li{
+	display: block;
+	list-style-type: none;
+	margin: 0px;
+}
