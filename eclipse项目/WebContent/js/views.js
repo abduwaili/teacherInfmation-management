@@ -15,6 +15,7 @@ function chooseTeacher() {
     $.ajax({
         url: "/xaingmu/chooseTeacher",
         async: false,
+        
         type: 'POST',
         dataType: 'json',
         success: function(data) {

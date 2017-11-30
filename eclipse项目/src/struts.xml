@@ -91,6 +91,27 @@
 		        	</result>
 	        	</action>
 	        	
+	        	<!--上传头像 -->
+	        	<action  name="UploadPhoto" class="com.struts2.action.UploadPhoto">
+		        	<result name="sucess">index.jsp</result>
+		        	<result name="error">photo.jsp</result>
+	        	</action>
+	        	
+	        	
+	        	<!-- 管理员功能 -->
+	        	<action  name="AdminAction" class="com.admin.action.AdminAction"  method="Teachers">
+		        	<result type="json">
+		        	<param name="root">result</param>
+		        	</result>
+		        </action>
+		        
+		        <!-- 通过或拒绝教师的注册审核 -->
+	        	<action  name="AuditTeacherSigin" class="com.admin.action.AdminAction"  method="AuditTeacherSigin">
+		        	<result type="json">
+		        	<param name="root">result</param>
+		        	</result>
+		        </action>
+	        	
          </package>
 
 </struts>

@@ -7,6 +7,7 @@
 	</head>
 	
 <body>
+	<div align="center"><h1><!-- #BeginDate format:Ch2 -->2017年11月30日 <!-- #EndDate --></h1></div>
 	<div align="center">
 		<table border="1" width="90%" cellpadding="0" cellspacing="0">
 			<caption>我的个人信息</caption>
@@ -26,5 +27,6 @@
 			</tr>
 		</table>
 	</div>
+	
 </body>
 </html>
