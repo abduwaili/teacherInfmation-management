@@ -52,7 +52,7 @@
 				 int i=0;
 				 while(rs.next())
 				 {				 
-					 if((rs.getString("IsSiginUp")+"").equals("False"))
+					 if((rs.getString("IsSiginUp")).equals("False"))
 					 {
 						 i++;
 			 %>
@@ -63,11 +63,11 @@
 							<th><%=rs.getString("TeacherAccount")%></th>
 							<th><%=rs.getString("TeacherName")%></th>
 							<th><%=rs.getString("Email")%><br/><%=rs.getString("Phone")%></th>
-							<th><a href="#">更多</a></th>
+							<th><a href="teacher_inf.jsp?TeacherAccount=<%=rs.getString("TeacherAccount")%>">更多</a></th>
 							<th><%=rs.getString("IsSiginUp")%></th>
 							<th>
-								<button onclick="AuditStudentSigin($(this).val())" style="height:100%;width:100%;border:0;background-color:white;" value=<%=rs.getString("TeacherAccount")%>>通过</button>
-								<button onclick="AuditStudentSigin($(this).val())" style="height:100%;width:100%;border:0;background-color:white;" value=<%=rs.getString("TeacherAccount")%>>拒绝</button>
+								<button onclick="AuditTearchSigin($(this).val())" type="submit" style="height:100%;width:100%;border:0;background-color:white;" id=<%=rs.getString("TeacherAccount")+"t0"%> value=<%=rs.getString("TeacherAccount")%>>通过</button>
+								<button onclick="NoAuditTearchSigin($(this).val())"  type="submit" style="height:100%;width:100%;border:0;background-color:white;" id=<%=rs.getString("TeacherAccount")+"t1"%> value=<%=rs.getString("TeacherAccount")%>>拒绝</button>
 							</th>
 						</tr>
 			 <%
@@ -75,7 +75,7 @@
 				}
 				while(rs1.next()) 
 				{
-					if((rs1.getString("IsSiginUp")+"").equals("False"))
+					if((rs1.getString("IsSiginUp")).equals("False"))
 					{
 					 	i++;
 			 %>	 
@@ -86,11 +86,11 @@
 							<th><%=rs1.getString("StudentAccount")%></th>
 							<th><%=rs1.getString("StudentName")%></th>
 							<th><%=rs1.getString("Email")%><br/><%=rs1.getString("Phone")%></th>
-							<th><a href="#">更多</a></th>
+							<th><a href="student_inf.jsp?StudentAccount=<%=rs1.getString("StudentAccount")%>">更多</a></th>
 							<th><%=rs1.getString("IsSiginUp")%></th>
 							<th>
-								<button onclick="AuditStudentSigin($(this).val())" style="height:100%;width:100%;border:0;background-color:white;" value=<%=rs1.getString("TeacherAccount")%>>通过</button>
-								<button onclick="AuditStudentSigin($(this).val())" style="height:100%;width:100%;border:0;background-color:white;" value=<%=rs1.getString("TeacherAccount")%>>拒绝</button>
+								<button onclick="AuditStudentSigin($(this).val())" type="submit" style="height:100%;width:100%;border:0;background-color:white;" id=<%=rs1.getString("StudentAccount")+"s0"%> value=<%=rs1.getString("StudentAccount")%>>通过</button>
+								<button onclick="NoAuditStudentSigin($(this).val())"  type="submit" style="height:100%;width:100%;border:0;background-color:white;" id=<%=rs1.getString("StudentAccount")+"s1"%> value=<%=rs1.getString("StudentAccount")%>>拒绝</button>
 							</th>
 						</tr>
 			<%		}

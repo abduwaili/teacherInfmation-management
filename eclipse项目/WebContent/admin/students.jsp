@@ -31,7 +31,6 @@
 					Connection conn;	
 					Statement stmt;	
 					ResultSet rs;
-				
 					try {
 						conn=DatabaseConnection.getConnection();
 						 stmt=conn.createStatement();
@@ -39,23 +38,23 @@
 						 rs=stmt.executeQuery(sql);
 						 int i=0;
 						 while(rs.next()) {
-						 i++;
-			  	%>
-			  	<tr>
-			  		<th><%=i%></th>
-			  		<th><img src=<%="../"+rs.getString("Picture")%> alt="阿杜" title="阿杜" style="height:100px; width:100px"/></th>
-					<th><%=rs.getString("StudentAccount")%></th>
-					<th><%=rs.getString("StudentName")%></th>
-					<th><%=rs.getString("College")%></th>
-					<th><%=rs.getString("Major")%></th>
-					<th>更多</th>
-				</tr>				 
-				<% 	 
+							 if(rs.getString("IsSiginUp").equals("True"))
+							 {
+								 i++;
+				 %>
+							  	<tr>
+							  		<th><%=i%></th>
+							  		<th><img src=<%="../"+rs.getString("Picture")%>  title="阿杜" style="height:100px; width:100px"/></th>
+									<th><%=rs.getString("StudentAccount")%></th>
+									<th><%=rs.getString("StudentName")%></th>
+									<th><%=rs.getString("College")%></th>
+									<th><%=rs.getString("Major")%></th>
+									<th><a href="student_inf.jsp?StudentAccount=<%=rs.getString("StudentAccount")%>">更多</a></th>
+								</tr>				 
+				<% 			 }
 						 }
-						
 					}catch (Exception e) {
 						out.print("查询失败");
-						
 					}
 				%>
 		</table>

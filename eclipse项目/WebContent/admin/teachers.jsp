@@ -46,19 +46,21 @@
 					 ArrayList<Student>list=new ArrayList<>();
 					 int i=0;
 					 while(rs.next()) {
-						 i++;
+						 if(rs.getString("IsSiginUp").equals("True"))
+						 {
+							 i++;
 			 %>
-		 	 <tr>
-				<th><%=i%></th>
-				<th><img src=<%="../"+rs.getString("Picture")%> alt="阿杜" title="阿杜" style="height:100px; width:100px"/></th>
-				<th><%=rs.getString("TeacherAccount")%></th>
-				<th><%=rs.getString("TeacherName")%></th>
-				<th><%=rs.getString("College")%></th>
-				<th><%=rs.getString("Position")%></th>
-				<th><a href="#">更多</a></th>
-		 	 </tr>
-		 	 <% 	 
-			  }	
+						 	 <tr>
+								<th><%=i%></th>
+								<th><img src=<%="../"+rs.getString("Picture")%> alt="阿杜" title="阿杜" style="height:100px; width:100px"/></th>
+								<th><%=rs.getString("TeacherAccount")%></th>
+								<th><%=rs.getString("TeacherName")%></th>
+								<th><%=rs.getString("College")%></th>
+								<th><%=rs.getString("Position")%></th>
+								<th><a href="teacher_inf.jsp?TeacherAccount=<%=rs.getString("TeacherAccount")%>">更多</a></th>
+						 	 </tr>
+		 	 <% 	 	}
+			 		 }	
 				}catch (Exception e) {
 					out.print("查询失败");	
 				}

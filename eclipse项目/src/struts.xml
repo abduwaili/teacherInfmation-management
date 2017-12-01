@@ -105,8 +105,29 @@
 		        	</result>
 		        </action>
 		        
-		        <!-- 通过或拒绝教师的注册审核 -->
+		        <!-- 通过教师的注册审核 -->
 	        	<action  name="AuditTeacherSigin" class="com.admin.action.AdminAction"  method="AuditTeacherSigin">
+		        	<result type="json">
+		        	<param name="root">result</param>
+		        	</result>
+		        </action>
+		        
+		        <!-- 拒绝教师的注册审核 -->
+	        	<action  name="NoAuditTeacherSigin" class="com.admin.action.AdminAction"  method="NoAuditTeacherSigin">
+		        	<result type="json">
+		        	<param name="root">result</param>
+		        	</result>
+		        </action>
+		        
+		         <!-- 通过学生的注册审核 -->
+	        	<action  name="AuditStudentSigin" class="com.admin.action.AdminAction"  method="AuditStudentSigin">
+		        	<result type="json">
+		        	<param name="root">result</param>
+		        	</result>
+		        </action>
+		        
+		        <!-- 拒绝学生的注册审核 -->
+	        	<action  name="NoAuditStudentSigin" class="com.admin.action.AdminAction"  method="NoAuditStudentSigin">
 		        	<result type="json">
 		        	<param name="root">result</param>
 		        	</result>

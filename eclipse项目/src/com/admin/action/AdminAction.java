@@ -51,17 +51,13 @@ public class AdminAction extends ActionSupport implements ServletRequestAware{
 		return null;
 	}
 	
-	//审核学生注册注册
-	public String AuditStudentSigin() {
-		return result;
-		
-	}
+
+	
 	
 	//审核教师注册注册
 	public String AuditTeacherSigin()
 	{
 		String Account=request.getParameter("TeacherAccount");
-		System.out.println(Account+"aaaaaaaaaaaaaaaaaaa");
 		Connection conn;
 		try {
 			conn=DatabaseConnection.getConnection();
@@ -76,9 +72,71 @@ public class AdminAction extends ActionSupport implements ServletRequestAware{
 		}	
 		JSONObject json = JSONObject.fromObject(ret);
 		result = json.toString();
+		return SUCCESS;	
+	}
+	
+	//拒绝教师注册
+	public String NoAuditTeacherSigin()
+	{
+		String Account=request.getParameter("TeacherAccount");
+		Connection conn;
+		try {
+			 conn=DatabaseConnection.getConnection();	
+		  	 String sql=" delete from teacher where TeacherAccount=?";
+		  	 PreparedStatement pStatement=conn.prepareStatement(sql);
+		  	 pStatement.setString(1, Account);
+		  	 pStatement.executeUpdate();
+			ret.put("ret", "Success");
+		} catch (Exception e) {
+			ret.put("ret", "Fail");
+		}	
+		JSONObject json = JSONObject.fromObject(ret);
+		result = json.toString();
 		return SUCCESS;
 		
 	}
+	
+	//通过学生注册
+		public String AuditStudentSigin()
+		{
+			String Account=request.getParameter("StudentAccount");
+			Connection conn;
+			try {
+				conn=DatabaseConnection.getConnection();
+				String sql="update student set IsSiginUp=? where StudentAccount=?";
+				PreparedStatement ps= conn.prepareStatement(sql);
+				ps.setString(1, "True");
+				ps.setString(2, Account);
+				ps.executeUpdate();
+				ret.put("ret", "Success");
+			} catch (Exception e) {
+				ret.put("ret", "Fail");
+			}	
+			JSONObject json = JSONObject.fromObject(ret);
+			result = json.toString();
+			return SUCCESS;	
+		}
+		
+		//拒绝学生注册
+		public String NoAuditStudentSigin()
+		{
+			String Account=request.getParameter("StudentAccount");
+			Connection conn;
+			try {
+				 conn=DatabaseConnection.getConnection();	
+			  	 String sql=" delete from student where StudentAccount=?";
+			  	 PreparedStatement pStatement=conn.prepareStatement(sql);
+			  	 pStatement.setString(1, Account);
+			  	 pStatement.executeUpdate();
+				ret.put("ret", "Success");
+			} catch (Exception e) {
+				ret.put("ret", "Fail");
+			}	
+			JSONObject json = JSONObject.fromObject(ret);
+			result = json.toString();
+			return SUCCESS;
+			
+		}
 	
 	
 	
