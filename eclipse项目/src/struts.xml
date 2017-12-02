@@ -132,6 +132,25 @@
 		        	<param name="root">result</param>
 		        	</result>
 		        </action>
+		        
+		           <!-- 管理员登陆 -->
+	        	<action  name="AdminLogin" class="com.admin.action.AdminAction" >
+		        	<result name="sucess" type="redirect">admin/admin.jsp</result>
+		        	<result name="error" type="redirect">admin/admin_login.jsp</result>
+		        </action>
+		        
+		          <!-- 管理员退出 -->
+	        	<action  name="SiginOut" class="com.admin.action.AdminAction" method="SiginOut">
+		        	<result name="error" type="redirect">admin/admin.jsp</result>
+		        	<result name="sucess" type="redirect">admin/admin_login.jsp</result>
+		        </action>
+		        
+		         <!-- 增加教师的个人主页 -->
+	        	<action  name="AddBaike" class="com.admin.action.AdminAction"  method="AddBaike">
+		        	<result type="json">
+		        	<param name="root">result</param>
+		        	</result>
+		        </action>
 	        	
          </package>
 

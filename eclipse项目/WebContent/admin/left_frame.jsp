@@ -7,6 +7,13 @@
 	<link rel="stylesheet" type="text/css" href="css/style1.css">
 	</head>
 <body style="background-color:#CCC">
+	<%
+		String s=(String)session.getAttribute("AdminLogin")+"";
+		if(s.equals("Yes")==false)
+		{
+			response.sendRedirect("admin_login.jsp");	
+		}
+	%>
 	<div class="style1">
 		<ul >
 			<li><a href="admin_inf.jsp" target="main_frame">我的个人信息</a></li>

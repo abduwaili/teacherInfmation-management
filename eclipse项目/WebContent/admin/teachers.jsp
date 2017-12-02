@@ -22,6 +22,13 @@
             </script>
 </head>
 <body>
+	<%
+		String s=(String)session.getAttribute("AdminLogin")+"";
+		if(s.equals("Yes")==false)
+		{
+			response.sendRedirect("admin_login.jsp");	
+		}
+	%>
 	<div align="center">
 		<table cellspacing="0" cellpadding="0" border="1" width="80%">
 			<caption>教师列表</caption>

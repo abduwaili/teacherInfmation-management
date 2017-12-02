@@ -16,6 +16,13 @@
 </head>
 <body>
 	<%
+		String s=(String)session.getAttribute("AdminLogin")+"";
+		if(s.equals("Yes")==false)
+		{
+			response.sendRedirect("admin_login.jsp");	
+		}
+	%>
+	<%
 		String StudentAccount=request.getParameter("StudentAccount");
 		Connection conn;	
 		Statement stmt;	
@@ -39,7 +46,7 @@
 				student.setPicture(rs.getString("Picture"));
 	%>
 				<div align="center">
-					<table cellpadding="10" cellspacing="30" border="1" width="600"  style="text-align:left;">
+					<table cellpadding="10" cellspacing="10"  border="1" width="1000" class="table">
 						<caption><%=student.getStudentName()+"的个人信息"%></caption>			
 							<tr>
 								<td width="200" rowspan="8">

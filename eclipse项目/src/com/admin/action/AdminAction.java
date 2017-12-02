@@ -23,7 +23,22 @@ import net.sf.json.JSONObject;
 public class AdminAction extends ActionSupport implements ServletRequestAware{
 
 	private static final long serialVersionUID = -421258846336956137L;
+	String AdminName;
+	String AdminPassword;	
+	public String getAdminName() {
+		return AdminName;
+	}
+	public void setAdminName(String adminName) {
+		AdminName = adminName;
+	}
+	public String getAdminPassword() {
+		return AdminPassword;
+	}
+	public void setAdminPassword(String adminPassword) {
+		AdminPassword = adminPassword;
+	}
 
+	
 	private HttpServletRequest request;
 	private String result;
 	
@@ -46,12 +61,38 @@ public class AdminAction extends ActionSupport implements ServletRequestAware{
 	}
 	
 	
+	//管理员登陆
 	public String execute() throws Exception {
-		
-		return null;
+		Connection conn;
+		Statement stmt;
+		ResultSet rs;
+		try {
+			conn=DatabaseConnection.getConnection();
+			stmt=conn.createStatement();
+			String sql="select *from admin where AdminName='"+AdminName+"' and AdminPassword='"+AdminPassword+"' ";
+			rs=stmt.executeQuery(sql);
+			if(rs.next()) {
+				session.put("AdminLogin", "Yes");
+				return "sucess";
+			}
+		} catch (Exception e) {
+			session.put("AdminLogin", "No");
+			return "error";
+		}
+		return "error";
 	}
 	
-
+	//管理员退出
+	public String SiginOut() {
+		try {
+			System.out.println(session.get("AdminLogin"));
+			session.remove("AdminLogin");
+			System.out.println(session.get("AdminLogin"));
+			return "sucess";
+		} catch (Exception e) {
+			return "error";
+		}
+	}
 	
 	
 	//审核教师注册注册
@@ -138,7 +179,26 @@ public class AdminAction extends ActionSupport implements ServletRequestAware{
 			
 		}
 	
-	
+	//改变或增加教师的个人主页
+		public String AddBaike() {
+			String Account=request.getParameter("TeacherAccount");
+			String Baike=request.getParameter("Baike");
+			Connection conn;
+			try {
+				conn=DatabaseConnection.getConnection();
+				String sql="update teacher set Baike=? where TeacherAccount=?";
+				PreparedStatement ps= conn.prepareStatement(sql);
+				ps.setString(1, Baike);
+				ps.setString(2, Account);
+				ps.executeUpdate();
+				ret.put("ret", "Success");
+			} catch (Exception e) {
+				ret.put("ret", "Fail");
+			}	
+			JSONObject json = JSONObject.fromObject(ret);
+			result = json.toString();
+			return SUCCESS;	
+		}
 	
 	
 	

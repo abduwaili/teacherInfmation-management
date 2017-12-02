@@ -22,6 +22,13 @@
     <script src="../js/jquery-3.2.1.min.js"></script>
 </head>
 <body>
+	<%
+		String s=(String)session.getAttribute("AdminLogin")+"";
+		if(s.equals("Yes")==false)
+		{
+			response.sendRedirect("admin_login.jsp");	
+		}
+	%>
 	<div align="center">
 		<table cellspacing="0" cellpadding="0" border="1" width="80%">
 			<caption>待审核注册用户列表</caption>

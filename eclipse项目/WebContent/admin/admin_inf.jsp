@@ -7,8 +7,15 @@
 	</head>
 	
 <body>
+	<%
+		String s=(String)session.getAttribute("AdminLogin")+"";
+		if(s.equals("Yes")==false)
+		{
+			response.sendRedirect("admin_login.jsp");	
+		}
+	%>
 	<div align="center"><h1><!-- #BeginDate format:Ch2 -->2017年11月30日 <!-- #EndDate --></h1></div>
-	<div align="center">
+	<div align="center" class="right">
 		<table border="1" width="90%" cellpadding="0" cellspacing="0">
 			<caption>我的个人信息</caption>
 			<tr>

@@ -3,38 +3,45 @@
 	padding: 0 auto;
 	margin: 0 auto;
 }
+body{
+	padding: 0 auto;
+	margin: 0 auto;
+}
+
 ul li a{
 	text-decoration:none;
 }
-body{
-	text-align: center;
-	margin: 0 auto;
-	padding: 0 auto;
-}
-
 
 
 /* top顶部css*/
-.top{
-	height: 120px;
-	width: 1000px;
-	text-align: center;
-}
-.image1{
-	width: 100px;
-	height: 100px;
-	float: left;
-	margin: 5px 0 5px 0px;
-}
-.logo{
-	margin: 30px auto auto 300px;
-	color: rgba(61,92,35,1);
-	float: left;
-	text-align: left;
+.top1{
+	line-height: 20px;
+	color: white;
+	text-align: right;
+	padding-right: 20px;
 }
 
 
-/* left-frame左部导航框架css*/
+/* admin_login.jspcss*/
+.login{
+	background-color: #698B69;
+	width: 500px;
+	height: 300px;
+	margin-top: 100px;
+	padding-top:100px
+}
+.form1{
+	width:300px;
+	height:40px
+}
+.submit1{
+	width:200px;
+	height:40px;
+	font-size:24;
+}
+
+
+
 .style1{
 	text-align: left;
 	line-height: 1.5;
@@ -43,4 +50,22 @@ body{
 	display: block;
 	list-style-type: none;
 	margin: 0px;
+}
+
+.table{
+	 background-color: #EAEAEA;
+}
+.tab0{
+	text-align: center;
+	
+	
+}
+.tab1{
+	text-align: right;
+	background-color: #66cc99;
+	
+}
+.tab2{
+	background-color: #336699;
+	text-align: left;
 }

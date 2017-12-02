@@ -145,3 +145,33 @@ function NoAuditStudentSigin(StudentAccount)
 	        }
 	 });
 }
+
+function AddBaike(TeacherAccount)
+{
+	var Baike=document.getElementById("baike").value;  
+	 $.ajax({
+	        url: "/xaingmu/AddBaike",
+	        data: {
+	        	TeacherAccount: TeacherAccount,
+	        	Baike:Baike
+	        },
+	        async: false,
+	        type: 'POST',
+	        dataType: 'json',
+	        success: function(data){
+	            var ret = eval("(" + data + ")");
+	            switch (ret['ret']) {
+	                case "Success":
+	                	alert("修改成功");
+	                    break;
+	                    
+	                case "Fail":
+	                	alert("修改失败");
+	                    break;
+	                    
+	                default:
+	                	alert("发生未知错误，请检查后台");
+	            }
+	        }
+	 });
+}
