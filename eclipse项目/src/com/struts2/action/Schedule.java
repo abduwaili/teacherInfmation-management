@@ -1,89 +1,84 @@
 package com.struts2.action;
 
-/**
- * 教师的日程表
- * @author dudu
- *
- */
 public class Schedule {
 	
-	private String TeacherAccount;		//教师账号
+	private String TeacherAccount;	
+	private String Year;
+	private String Month;
+	private String Day;
+	private String AllDay;
+	private String StartHour;
+	private String StartMinutes;
+	private String EndHour;
+	private String EndMinutes;
+	private String Arrange;
+	private String IsWatch;
 	
-	//星期一到星期天上下午
-	private String MonAm;
-	private String MonPm;
-	private String TueAm;
-	private String TuePm;
-	private String WedAm;
-	private String WedPm;
-	private String ThuAm;
-	private String ThuPm;
-	private String FriAm;
-	private String FriPm;
+	public String getIsWatch() {
+		return IsWatch;
+	}
+	public void setIsWatch(String isWatch) {
+		IsWatch = isWatch;
+	}
+	public String getAllDay() {
+		return AllDay;
+	}
+	public void setAllDay(String allDay) {
+		AllDay = allDay;
+	}
 	public String getTeacherAccount() {
 		return TeacherAccount;
 	}
 	public void setTeacherAccount(String teacherAccount) {
 		TeacherAccount = teacherAccount;
 	}
-	public String getMonAm() {
-		return MonAm;
+	public String getYear() {
+		return Year;
 	}
-	public void setMonAm(String monAm) {
-		MonAm = monAm;
+	public void setYear(String year) {
+		Year = year;
 	}
-	public String getMonPm() {
-		return MonPm;
+	public String getMonth() {
+		return Month;
 	}
-	public void setMonPm(String monPm) {
-		MonPm = monPm;
+	public void setMonth(String month) {
+		Month = month;
 	}
-	public String getTueAm() {
-		return TueAm;
+	public String getDay() {
+		return Day;
 	}
-	public void setTueAm(String tueAm) {
-		TueAm = tueAm;
+	public void setDay(String day) {
+		Day = day;
 	}
-	public String getTuePm() {
-		return TuePm;
+	public String getStartHour() {
+		return StartHour;
 	}
-	public void setTuePm(String tuePm) {
-		TuePm = tuePm;
+	public void setStartHour(String startHour) {
+		StartHour = startHour;
 	}
-	public String getWedAm() {
-		return WedAm;
+	public String getStartMinutes() {
+		return StartMinutes;
 	}
-	public void setWedAm(String wedAm) {
-		WedAm = wedAm;
+	public void setStartMinutes(String startMinutes) {
+		StartMinutes = startMinutes;
 	}
-	public String getWedPm() {
-		return WedPm;
+	public String getEndHour() {
+		return EndHour;
 	}
-	public void setWedPm(String wedPm) {
-		WedPm = wedPm;
+	public void setEndHour(String endHour) {
+		EndHour = endHour;
 	}
-	public String getThuAm() {
-		return ThuAm;
+	public String getEndMinutes() {
+		return EndMinutes;
 	}
-	public void setThuAm(String thuAm) {
-		ThuAm = thuAm;
+	public void setEndMinutes(String endMinutes) {
+		EndMinutes = endMinutes;
 	}
-	public String getThuPm() {
-		return ThuPm;
+	public String getArrange() {
+		return Arrange;
 	}
-	public void setThuPm(String thuPm) {
-		ThuPm = thuPm;
+	public void setArrange(String arrange) {
+		Arrange = arrange;
 	}
-	public String getFriAm() {
-		return FriAm;
-	}
-	public void setFriAm(String friAm) {
-		FriAm = friAm;
-	}
-	public String getFriPm() {
-		return FriPm;
-	}
-	public void setFriPm(String friPm) {
-		FriPm = friPm;
-	}
+	
 }

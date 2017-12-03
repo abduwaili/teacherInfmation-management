@@ -91,10 +91,17 @@
 		        	</result>
 	        	</action>
 	        	
-	        	<!--上传头像 -->
+	        	<!--  显示日程-->
+	        	<action  name="showSchedule" class="com.struts2.action.WebFunction" method="showSchedule">
+		        	<result type="json">
+		        	<param name="root">result</param>
+		        	</result>
+	        	</action>
+				
+				<!--上传头像 -->
 	        	<action  name="UploadPhoto" class="com.struts2.action.UploadPhoto">
-		        	<result name="sucess">index.jsp</result>
-		        	<result name="error">photo.jsp</result>
+		        	<result name="sucess" type="redirect">index.jsp</result>
+		        	<result name="error" type="redirect">photo.jsp</result>
 	        	</action>
 	        	
 	        	
@@ -151,7 +158,22 @@
 		        	<param name="root">result</param>
 		        	</result>
 		        </action>
-	        	
+		        
+		         <!-- 修改学生信息 -->
+	        	<action  name="StudentChange" class="com.admin.action.AdminAction"  method="StudentChange">
+		        	<result type="json">
+		        	<param name="root">result</param>
+		        	</result>
+		        </action>
+		        
+		        <!-- 修改教师信息 -->
+	        	<action  name="TeacherChange" class="com.admin.action.AdminAction"  method="TeacherChange">
+		        	<result type="json">
+		        	<param name="root">result</param>
+		        	</result>
+		        </action>
+		        
+		        
          </package>
 
 </struts>

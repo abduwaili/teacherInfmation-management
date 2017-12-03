@@ -85,9 +85,7 @@ public class AdminAction extends ActionSupport implements ServletRequestAware{
 	//管理员退出
 	public String SiginOut() {
 		try {
-			System.out.println(session.get("AdminLogin"));
 			session.remove("AdminLogin");
-			System.out.println(session.get("AdminLogin"));
 			return "sucess";
 		} catch (Exception e) {
 			return "error";
@@ -235,7 +233,7 @@ public class AdminAction extends ActionSupport implements ServletRequestAware{
 	
 	//显示所有的教师列表
 	public String Teachers() {
-		System.out.println("tttttttttttttttttttttttttttttttttttttttttttttttttt");
+		
 		Connection conn;	
 		Statement stmt;	
 		ResultSet rs;

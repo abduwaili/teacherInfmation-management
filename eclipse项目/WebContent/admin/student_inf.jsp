@@ -13,6 +13,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title><%=request.getParameter("StudentAccount")%></title>
+	<link rel="stylesheet" type="text/css" href="css/style1.css">
+	<script type="text/javascript" src="js/adjs.js"></script>
+	<script src="../js/jquery-3.2.1.js"></script>
+    <script src="../js/jquery-3.2.1.min.js"></script>
 </head>
 <body>
 	<%
@@ -52,32 +56,32 @@
 								<td width="200" rowspan="8">
 									<img src=<%="../"+student.getPicture() %> title=<%=student.getStudentName() %> style="height:250px; width:200px"/>
 								</td>
-								<td width="50">账号</td>
-								<td><%=student.getStudentAccount() %></td>
+								<td width="50" class="tab1">账号</td>
+								<td class="tab2"><%=student.getStudentAccount() %></td>
 							</tr>
 							<tr>
-								<td>姓名</td>
-								<td><%=student.getStudentName() %></td>
+								<td class="tab1">姓名</td>
+								<td class="tab2"><%=student.getStudentName() %></td>
 							</tr>
 							<tr>
-								<td>学院</td>
-								<td><%=student.getCollege() %></td>
+								<td class="tab1">学院</td>
+								<td class="tab2"><%=student.getCollege() %></td>
 							</tr>
 							<tr>
-								<td>专业</td>
-								<td><%=student.getMajor() %></td>
+								<td class="tab1">专业</td>
+								<td class="tab2"><%=student.getMajor() %></td>
 							</tr>
 							<tr>
-								<td>年级</td>
-								<td><%=student.getGrade() %></td>
+								<td class="tab1">年级</td>
+								<td class="tab2"><%=student.getGrade() %></td>
 							</tr>
 							<tr>
-								<td>电话</td>
-								<td><%=student.getPhone() %></td>
+								<td class="tab1">电话</td>
+								<td class="tab2"><%=student.getPhone() %></td>
 							</tr>
 							<tr>
-								<td>邮箱</td>
-								<td><%=student.getEmail() %></td>
+								<td class="tab1">邮箱</td>
+								<td class="tab2"><%=student.getEmail() %></td>
 							</tr>
 					</table>
 				</div>

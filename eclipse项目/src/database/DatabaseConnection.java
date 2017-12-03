@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 /**
- * 链接数据库
- * @author 阿杜
+ * 闁剧偓甯撮弫鐗堝祦鎼达拷
+ * @author 闂冩寧娼�
  */
 public class DatabaseConnection {
 	static Connection conn=null;

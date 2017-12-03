@@ -10,20 +10,22 @@
             教师信息管理系统
         </title>
         <meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+        <meta name="viewport" content="width=device-width"/>
         <meta content="教师信息管理系统" name="description"/>
         <meta content="教师, 信息, 管理" name="keywords"/>
         <link href="css/normalize.css" rel="stylesheet" type="text/css"/>
         <link href="css/login_demo.css" rel="stylesheet" type="text/css"/>
         <link href="css/component.css" rel="stylesheet" type="text/css"/>
         <link href="css/content.css" rel="stylesheet" type="text/css"/>
-        <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,600,700" rel="stylesheet"/>
-        <link href="../favicon.ico" rel="shortcut icon"/>
         <link href="css/demo.css" rel="stylesheet" type="text/css"/>
         <link href="css/elastislide.css" rel="stylesheet" type="text/css"/>
         <link href="css/custom.css" rel="stylesheet" type="text/css"/>
         <link href="css/ns-default.css" rel="stylesheet" type="text/css"/>
         <link href="css/ns-style-attached.css" rel="stylesheet" type="text/css"/>
         <link href="css/simpleAlert.css" rel="stylesheet"/>
+		<link rel="stylesheet" href="css/fullcalendar.css"/>
+		<link rel="stylesheet" href="css/fullcalendar.print.css" media='print'/>
+		<link rel="stylesheet" href="css/style_c.css"/>
             <script src="js/simpleAlert.js">
             </script>
             <script src="js/modernizr.custom.js">
@@ -40,7 +42,15 @@
             </script>
             <script src="js/views.js">
             </script>
-
+            <script src="js/jquery.min.js" type="text/javascript">
+            </script>
+			<script src="js/fullcalendar.min.js">
+			</script>
+			<script src="js/custom.js">
+			</script>
+			<script src="js/date.js">
+			</script>
+			
     </head>
     <body>
         <script>
@@ -60,6 +70,7 @@
                 }
             }
             chooseTeacher();
+            
         })
         </script>
         <nav id="nav">
@@ -90,6 +101,7 @@
            Student student = (Student)session.getAttribute("student");
            ArrayList<Arrange> studentOrder = null;
            ArrayList<Arrange> teacherOrder = null;
+           ArrayList<Schedule> teacherSchedule=null;
            studentOrder = (ArrayList<Arrange>)session.getAttribute("studentOrder");
            teacherOrder = (ArrayList<Arrange>)session.getAttribute("teacherOrder");
            if(teacher == null){
@@ -104,48 +116,10 @@
 		   if(studentOrder == null){
 			   studentOrder = new ArrayList<Arrange>();
 		   }
-           String MonAm = (String)session.getAttribute("MonAm");
-	       String MonPm =(String)session.getAttribute("MonPm");
-	       String TueAm = (String)session.getAttribute("TueAm");
-	       String TuePm = (String)session.getAttribute("TuePm");
-	       String WedAm = (String)session.getAttribute("WedAm");
-	       String WedPm = (String)session.getAttribute("WedPm");
-	       String ThuAm = (String)session.getAttribute("ThuAm");
-	       String ThuPm = (String)session.getAttribute("ThuPm");
-	       String FriAm = (String)session.getAttribute("FriAm");
-	       String FriPm = (String)session.getAttribute("FriPm");
-		   if(MonAm == null){
-			   MonAm = "";
-		   }
-		   if(MonPm == null){
-			   MonPm = "";
-		   }
-		   if(TueAm == null){
-			   TueAm = "";
-		   }
-		   if(TuePm == null){
-			   TuePm = "";
-		   }
-		   if(WedAm == null){
-			   WedAm = "";
-		   }
-		   if(WedPm == null){
-			   WedPm = "";
-		   }
-		   if(ThuAm == null){
-			   ThuAm = "";
-		   }
-		   if(ThuPm == null){
-			   ThuPm = "";
-		   }
-		   if(FriAm == null){
-			   FriAm = "";
-		   }
-		   if(FriPm == null){
-			   FriPm = "";
-		   }
 		   
         %>
+
+
         <div class="wrapper wrapper-style1 wrapper-first" id="teacher" style="display:none">
             <article class="container" id="top">
                 <div class="row">
@@ -163,13 +137,13 @@
                                     <label for="teacherName">
                                         姓名
                                     </label>
-                                    <input id="teacherName" name="teacherName" placeholder="姓名" value=<%="'"+teacher.getTeacherName()+"'"%> style="background-color:#EEE" type="text"/>
+                                    <input id="teacherName" name="teacherName" value=<%="'"+teacher.getTeacherName()+"'"%> style="background-color:#EEE" type="text"/>
                                 </div>
                                 <div class="6u">
                                     <label for="teacherCollege">
                                         學院
                                     </label>
-                                    <input id="teacherCollege" name="teacherCollege" placeholder="学院" value=<%="'"+teacher.getCollege()+"'"%> style="background-color:#EEE" type="text"/>
+                                    <input id="teacherCollege" name="teacherCollege" value=<%="'"+teacher.getCollege()+"'"%> style="background-color:#EEE" type="text"/>
                                 </div>
                             </div>
                             <div class="row half">
@@ -177,13 +151,13 @@
                                     <label for="teacherPosition">
                                         职称
                                     </label>
-                                    <input id="teacherPosition" name="teacherPositon" placeholder="职称" value=<%="'"+teacher.getPosition()+"'"%> style="background-color:#EEE" type="text"/>
+                                    <input id="teacherPosition" name="teacherPositon"  value=<%="'"+teacher.getPosition()+"'"%> style="background-color:#EEE" type="text"/>
                                 </div>
                                 <div class="6u">
                                     <label for="teacherPhone">
                                         联系方式
                                     </label>
-                                    <input id="teacherPhone" name="teacherPhone" value=<%="'"+teacher.getPhone()+"'"%> placeholder="联系方式" style="background-color:#EEE" type="text"/>
+                                    <input id="teacherPhone" name="teacherPhone" value=<%="'"+teacher.getPhone()+"'"%>  style="background-color:#EEE" type="text"/>
                                 </div>
                             </div>
                              <div class="row half">
@@ -191,480 +165,202 @@
                                     <label for="teacherMoney">
                                         基金
                                     </label>
-                                    <input id="teacherMoney" name="teacherMoney" placeholder="职称" value=<%="'"+teacher.getMoney()+"'"%> style="background-color:#EEE" type="text"/>
+                                    <input id="teacherMoney" name="teacherMoney" value=<%="'"+teacher.getMoney()+"'"%> style="background-color:#EEE" type="text"/>
                                 </div>
                                 <div class="6u">
                                     <label for="teacherFSRA">
                                         科研成果
                                     </label>
-                                    <input id="teacherFSRA" name="teacherFRSA" value=<%="'"+teacher.getFSRA()+"'"%> placeholder="联系方式" style="background-color:#EEE" type="text"/>
+                                    <input id="teacherFSRA" name="teacherFRSA" value=<%="'"+teacher.getFSRA()+"'"%>  style="background-color:#EEE" type="text"/>
                                 </div>
                             </div>
-                            <div class="row half">
-                                <div class="6u">
-                                    <button style="text-align: center；background-color:#02FCEC；border-radius: 8px;" type="submit"  onclick="changeTeacherInf()">更改信息</button>
-                                </div>
-                                <div class="6u">
-                                    <button style="text-align: center；background-color:#02FCEC；border-radius: 8px;" onclick="signOut()">退出登录</button>
-                                </div>
-                            </div>
+                        
                         </form>
-                        <div class="8u" style="padding-top:2em">
-                            <p>
-                                Hi!
-                                <strong>
-                                    <%="'"+teacher.getTeacherName()+"'"%>
-                                </strong>
-                                。 您的预约信息以及日程安排如下
-                            </p>
+                    </div>
+                </div>
+                <div class="mockup-content" style="background-color:white; padding-bottom: 4em;">
+                <div class="morph-button morph-button-modal morph-button-modal-2 morph-button-fixed">
+                    <button class="button" style="background:white"  id="showSchedule" onclick="showSchedule()">
+                        	显示日程
+                    </button>
+                 </div>
+                 <div class="morph-button morph-button-modal morph-button-modal-2 morph-button-fixed">
+                    <button class="button" style="background:white" type="button">
+                      	  增加日程
+                    </button>
+                    <div class="morph-content" style="overflow-y:scroll" >
+                        <div>
+                            <div class="content-style-form content-style-form-1">
+                                <span class="icon icon-close" id="closeAddSchedule">
+                                    Close the dialog
+                                </span>
+                                <h2 style="color: skyblue">
+                                    <input name="isAddWatch" type="radio" value="true">
+                                        可见
+                                        <input name="isAddWatch" type="radio" value="false">
+                                            不可见
+                                </h2>
+                                  
+                                        <p>
+                                            <label>
+                                                日程日期
+                                            </label>
+                                            <input type="date" required name="scheduleDate">
+                                        </p>
+                                        <p>
+                                            <label>
+                                                开始时间(默认00:00)
+                                            </label>
+                                            <input type="time" required name="addScheduleStart">
+                                        </p>
+                                        <p>
+                                            <label>
+                                                结束时间(默认24:00)
+                                            </label>
+                                            <input type="time" required name="addScheduleEnd">
+                                        </p>
+                                        <p>
+                                            <label>
+                                                内容
+                                            </label>
+                                            <input type="text" required name="addScheduleContent">
+                                        </p>
+                                        <p>
+                                            <button onclick="addSchedule()" type="submit">
+                                                增加
+                                            </button>
+                                        </p>
+                                
+                            </div>
                         </div>
                     </div>
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>
-                                预约时间
-                            </th>
-                            <th>
-                                预约事由
-                            </th>
-                            <th>
-                                学生姓名
-                            </th>
-                            <th>
-                                学生专业
-                            </th>
-                            <th>
-                                学生电话
-                            </th>
-                            <th>
-                                同意预约
-                            </th>
-                            <th>
-                                拒绝预约
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <%for(Arrange ele : teacherOrder){%>
-                        <tr>
-                            <td>
-                                <%=ele.getArrangeTime()%>
-                            </td>
-                            <td>
-                                <%=ele.getArrangeReason()%>
-                            </td>
-                            <td>
-                                <%=ele.getStudentName() %>
-                            </td>
-                            <td>
-                                <%=ele.getStudentMajor() %>
-                            </td>
-                            <td>
-                                <%=ele.getStudentPhone() %>
-                            </td>
-                            <td>
-                                <button onclick="teacherAgreeOrder($(this).val())" style="height:100%;width:100%;border:0;background-color:white;" value=<%="'"+ele.getArrangeId()+"'"%>>
-                                    同意预约
-                                </button>
-                            </td>
-                            <td>
-
-                                <button onclick="teacherCancelOrder($(this).val())" style="height:100%;width:100%;border:0;background-color:white;" value=<%="'"+ele.getArrangeId()+"'"%>>
-                                    拒绝预约
-                                </button>
-                            </td>
-                            <%}%>
-                        </tr>
-                    </tbody>
-                </table>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>
-                                时间
-                            </th>
-                            <th>
-                                星期一
-                            </th>
-                            <th>
-                                星期二
-                            </th>
-                            <th>
-                                星期三
-                            </th>
-                            <th>
-                                星期四
-                            </th>
-                            <th>
-                                星期五
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                            	上午
-                            </td>
-                            <%if(MonAm.equals("none")){%>
-                            <td>
-                            <div class="morph-button morph-button-modal morph-button-modal-3 morph-button-fixed">
-                                <button type="button" id="MonAmButton">
-                                    增加日程
-                                </button>
-                                <div class="morph-content" style="overflow-y:scroll;">
-                                    <div>
-                                        <div class="content-style-form content-style-form-2">
-                                            <span class="icon icon-close" id="MonAm">
-                                                Close the dialog
-                                            </span>
-                                            <form method="POST">
-                                                <p>
-                                                    <label>
-                                                        内容
-                                                    </label>
-                                                    <input name="MonAm" type="text">
-                                                    </p>
-                                                        <p>
-                                                            <button  onclick="addSchedule($(this).val())" type="submit" value="MonAm">
-                                                                增加
-                                                            </button>
-                                                        </p>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+                <!-- morph-button -->
+               
+                 <div class="morph-button morph-button-modal morph-button-modal-2 morph-button-fixed">
+                    <button class="button" style="background:white" type="button">
+                        修改日程
+                    </button>
+                    <div class="morph-content" style="overflow-y:scroll">
+                        <div>
+                            <div class="content-style-form content-style-form-1">
+                                <span class="icon icon-close" id="closeChangeSchedule">
+                                    Close the dialog
+                                </span>
+                                <h2 style="color: skyblue">
+                                    <input name="isChangeWatch" type="radio" value="true">
+                                        可见
+                                        <input name="isChangeWatch" type="radio" value="false">
+                                            不可见
+                                </h2>
+                                <form method="POST">  
+                                        <p>
+                                            <label>
+                                                日程日期(若日期不存在则自动添加)
+                                            </label>
+                                            <input type="date" required name="changeScheduleDate">
+                                        </p>
+                           
+                                        <p>
+                                            <label>
+                                                开始时间(默认00:00)
+                                            </label>
+                                            <input type="time" required name="changeScheduleStart">
+                                        </p>
+                                        <p>
+                                            <label>
+                                                结束时间(默认24:00)
+                                            </label>
+                                            <input type="time" required name="changeScheduleEnd">
+                                        </p>
+                                        <p>
+                                            <label>
+                                                日程内容
+                                            </label>
+                                            <input type="text" required name="changeScheduleContent">
+                                        </p>
+                                        <p>
+                                            <button onclick="changeSchedule()" type="submit">
+                                                更改
+                                            </button>
+                                        </p>
+                                </form>
                             </div>
-                            </td>
-                            <%}else{%>
-                            <td>
-                                <%=MonAm%>
-                            </td>
-                            <%}
-                			if(TueAm.equals("none")){%>
-                            <td>
-                            <div class="morph-button morph-button-modal morph-button-modal-3 morph-button-fixed">
-                                <button type="button" id="TueAmButton">
-                                    增加日程
-                                </button>
-                                <div class="morph-content" style="overflow-y:scroll;">
-                                    <div>
-                                        <div class="content-style-form content-style-form-2">
-                                            <span class="icon icon-close" id="TueAm">
-                                                Close the dialog
-                                            </span>
-                                            <form method="POST">
-                                                <p>
-                                                    <label>
-                                                        内容
-                                                    </label>
-                                                    <input name="TueAm" type="text">
-                                                    </p>
-                                                        <p>
-                                                            <button  onclick="addSchedule($(this).val())" type="submit" value="TueAm">
-                                                                增加
-                                                            </button>
-                                                        </p>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="morph-button morph-button-modal morph-button-modal-2 morph-button-fixed">
+                    <button class="button" style="background:white" type="button">
+                        删除日程
+                    </button>
+                    <div class="morph-content" style="overflow-y:scroll">
+                        <div>
+                            <div class="content-style-form content-style-form-1">
+                                <span class="icon icon-close" id="closeDeleteSchedule">
+                                    Close the dialog
+                                </span>
+                                <h2 style="color: skyblue">
+                                   删除日程
+                                </h2>
+                                <form method="POST">  
+                                        <p>
+                                            <label>
+                                                选择删除日程日期
+                                            </label>
+                                            <input type="date" required name="deleteScheduleDate">
+                                        </p>
+                                        <p>
+                                            <label>
+                                                开始时间(默认00:00)
+                                            </label>
+                                            <input type="time" required name="deleteScheduleStart">
+                                        </p>
+                                        <p>
+                                            <label>
+                                                结束时间(默认24:00)
+                                            </label>
+                                            <input type="time" required name="deleteScheduleEnd">
+                                        </p>
+                                        <p>
+                                            <label>
+                                                内容(默认选择所有相应日期日程)
+                                            </label>
+                                            <input type="text" required name="deleteScheduleCotent">
+                                        </p>
+                                        <p>
+                                            <button onclick="deleteSchedule()" type="submit">
+                                                删除
+                                            </button>
+                                        </p>
+                                </form>
                             </div>
-                            </td>
-                            <%}else{%>
-                            <td>
-                                <%=TueAm%>
-                            </td>
-                            <%}
-                			if(WedAm.equals("none")){%>
-                            <td>
-                            <div class="morph-button morph-button-modal morph-button-modal-3 morph-button-fixed">
-                                <button type="button" id="WedAmButton">
-                                    增加日程
-                                </button>
-                                <div class="morph-content" style="overflow-y:scroll;">
-                                    <div>
-                                        <div class="content-style-form content-style-form-2">
-                                            <span class="icon icon-close" id="WedAm">
-                                                Close the dialog
-                                            </span>
-                                            <form method="POST">
-                                                <p>
-                                                    <label>
-                                                        内容
-                                                    </label>
-                                                    <input name="WedAm" type="text">
-                                                    </p>
-                                                        <p>
-                                                            <button  onclick="addSchedule($(this).val())" type="submit" value="WedAm">
-                                                                增加
-                                                            </button>
-                                                        </p>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            </td>
-                            <%}else{%>
-                            <td>
-                                <%=WedAm%>
-                            </td>
-                            <%}
-                			if(ThuAm.equals("none")){%>
-                            <td>
-                            <div class="morph-button morph-button-modal morph-button-modal-3 morph-button-fixed">
-                                <button type="button" id="ThuAmButton">
-                                    增加日程
-                                </button>
-                                <div class="morph-content" style="overflow-y:scroll;">
-                                    <div>
-                                        <div class="content-style-form content-style-form-2">
-                                            <span class="icon icon-close" id="ThuAm">
-                                                Close the dialog
-                                            </span>
-                                            <form method="POST">
-                                                <p>
-                                                    <label>
-                                                        内容
-                                                    </label>
-                                                    <input name="ThuAm" type="text">
-                                                    </p>
-                                                        <p>
-                                                            <button  onclick="addSchedule($(this).val())" type="submit" value="ThuAm">
-                                                                增加
-                                                            </button>
-                                                        </p>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            </td>
-                            <%}else{%>
-                            <td>
-                                <%=ThuAm%>
-                            </td>
-                            <%}
-                			if(FriAm.equals("none")){%>
-                            <td>
-                            <div class="morph-button morph-button-modal morph-button-modal-3 morph-button-fixed">
-                                <button type="button" id="FriAmButton">
-                                    增加日程
-                                </button>
-                                <div class="morph-content" style="overflow-y:scroll;">
-                                    <div>
-                                        <div class="content-style-form content-style-form-2">
-                                            <span class="icon icon-close" id="FriAm">
-                                                Close the dialog
-                                            </span>
-                                            <form method="POST">
-                                                <p>
-                                                    <label>
-                                                        内容
-                                                    </label>
-                                                    <input name="FriAm" type="text">
-                                                    </p>
-                                                        <p>
-                                                            <button  onclick="addSchedule($(this).val())" type="submit" value="FriAm">
-                                                                增加
-                                                            </button>
-                                                        </p>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            </td>
-                            <%}else{%>
-                            <td>
-                                <%=FriAm%>
-                            </td>
-                            <%}%>
-                        </tr>
-                        <tr>
-                            <td>
-                            	下午
-                            </td>
-                            <%if("none".equals(MonPm)){%>
-                            <td>
-                            <div class="morph-button morph-button-modal morph-button-modal-3 morph-button-fixed">
-                                <button type="button" id="MonPmButton">
-                                    增加日程
-                                </button>
-                                <div class="morph-content" style="overflow-y:scroll;">
-                                    <div>
-                                        <div class="content-style-form content-style-form-2">
-                                            <span class="icon icon-close" id="MonPm">
-                                                Close the dialog
-                                            </span>
-                                            <form method="POST">
-                                                <p>
-                                                    <label>
-                                                        内容
-                                                    </label>
-                                                    <input name="MonPm" type="text">
-                                                    </p>
-                                                        <p>
-                                                            <button  onclick="addSchedule($(this).val())" type="submit" value="MonPm">
-                                                                增加
-                                                            </button>
-                                                        </p>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            </td>
-                            <%}else{%>
-                            <td>
-                                <%=MonPm%>
-                            </td>
-                            <%}
-                			if("none".equals(TuePm)){%>
-                            <td>
-                            <div class="morph-button morph-button-modal morph-button-modal-3 morph-button-fixed">
-                                <button type="button" id="TuePmButton">
-                                    增加日程
-                                </button>
-                                <div class="morph-content" style="overflow-y:scroll;">
-                                    <div>
-                                        <div class="content-style-form content-style-form-2">
-                                            <span class="icon icon-close" id="TuePm">
-                                                Close the dialog
-                                            </span>
-                                            <form method="POST">
-                                                <p>
-                                                    <label>
-                                                        内容
-                                                    </label>
-                                                    <input name="TuePm" type="text">
-                                                    </p>
-                                                        <p>
-                                                            <button  onclick="addSchedule($(this).val())" type="submit" value="TuePm">
-                                                                增加
-                                                            </button>
-                                                        </p>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            </td>
-                            <%}else{%>
-                            <td>
-                                <%=TuePm%>
-                            </td>
-                            <%}
-                			if("none".equals(WedPm)){%>
-                            <td>
-                            <div class="morph-button morph-button-modal morph-button-modal-3 morph-button-fixed">
-                                <button type="button" id="WedPmButton">
-                                    增加日程
-                                </button>
-                                <div class="morph-content" style="overflow-y:scroll;">
-                                    <div>
-                                        <div class="content-style-form content-style-form-2">
-                                            <span class="icon icon-close" id="WedPm">
-                                                Close the dialog
-                                            </span>
-                                            <form method="POST">
-                                                <p>
-                                                    <label>
-                                                        内容
-                                                    </label>
-                                                    <input name="WedPm" type="text">
-                                                    </p>
-                                                        <p>
-                                                            <button  onclick="addSchedule($(this).val())" type="submit" value="WedPm">
-                                                                增加
-                                                            </button>
-                                                        </p>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            </td>
-                            <%}else{%>
-                            <td>
-                                <%=WedPm%>
-                            </td>
-                            <%}
-                			if(ThuPm.equals("none")){%>
-                            <td>
-                            <div class="morph-button morph-button-modal morph-button-modal-3 morph-button-fixed">
-                                <button type="button" id="ThuPmButton">
-                                    增加日程
-                                </button>
-                                <div class="morph-content" style="overflow-y:scroll;">
-                                    <div>
-                                        <div class="content-style-form content-style-form-2">
-                                            <span class="icon icon-close" id="ThuPm">
-                                                Close the dialog
-                                            </span>
-                                            <form method="POST">
-                                                <p>
-                                                    <label>
-                                                        内容
-                                                    </label>
-                                                    <input name="ThuPm" type="text">
-                                                    </p>
-                                                        <p>
-                                                            <button  onclick="addSchedule($(this).val())" type="submit" value="ThuPm">
-                                                                增加
-                                                            </button>
-                                                        </p>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            </td>
-                            <%}else{%>
-                            <td>
-                                <%=ThuPm%>
-                            </td>
-                            <%}
-                			if(FriPm.equals("none")){%>
-                            <td>
-                            <div class="morph-button morph-button-modal morph-button-modal-3 morph-button-fixed">
-                                <button type="button" id="FriPmButton">
-                                    增加日程
-                                </button>
-                                <div class="morph-content" style="overflow-y:scroll;">
-                                    <div>
-                                        <div class="content-style-form content-style-form-2">
-                                            <span class="icon icon-close" id="FriPm">
-                                                Close the dialog
-                                            </span>
-                                            <form method="POST">
-                                                <p>
-                                                    <label>
-                                                        内容
-                                                    </label>
-                                                    <input name="FriPm" type="text">
-                                                    </p>
-                                                        <p>
-                                                            <button  onclick="addSchedule($(this).val())" type="submit" value="FriPm">
-                                                                增加
-                                                            </button>
-                                                        </p>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            </td>
-                            <%}else{%>
-                            <td>
-                                <%=FriPm%>
-                            </td>
-                            <%}%>
-                        </tr>
-                    </tbody>
-                </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- morph-button -->
+                <div class="morph-button morph-button-modal morph-button-modal-3 morph-button-fixed">
+                    <button class="button" style="background:white" type="submit" onclick="changeTeacherInf()">
+                        更改信息
+                    </button>
+                </div>
+               
+                <div class="morph-button morph-button-modal morph-button-modal-3 morph-button-fixed">
+                    <button class="button" style="background:white" type="button" onclick="signOut()">
+                       退出登录
+                    </button>
+                </div>
+            </div>
+            
+									<div class="box">
+										<div class="box-head">
+											<h3>CARLENDAR</h3>
+										</div>
+										<div class="box-content box-nomargin">
+											<div class="calendar"></div>
+										</div>
+									</div>
+							
+							
             </article>
         </div>
         <div class="wrapper wrapper-style1 wrapper-first" id="student" style="display:none">
@@ -673,7 +369,10 @@
                     <!--个人图片-->
                     <div class="4u">
                         <span class="me image image-full">
-                            <img onmousedown="signInCheck()" src=<%="'"+student.getPicture()+"'"%>/>
+                        
+                            <input id="userface" style="display: block;position: absolute;z-index: 999;height:18em;width: 18em;opacity: 0;border-radius: 50%;
+	overflow: hidden;" onchange="upLoad()" type="file" />
+                            <img src=<%="'"+student.getPicture()+"'"%>/>
                         </span>
                     </div>
                     <!--个人信息-->
@@ -729,6 +428,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="box">
+										<div class="box-head">
+											<h3>CARLENDAR</h3>
+										</div>
+										<div class="box-content box-nomargin">
+											<div class="calendar"></div>
+										</div>
+									</div>
                 <table>
                     <thead>
                         <tr>
@@ -882,8 +589,8 @@
                     </div>
                 </article>
             </div>
-            <div class="mockup-content" style="background-color:white; padding-bottom: 4em;">
-                <div class="morph-button morph-button-modal morph-button-modal-2 morph-button-fixed">
+           <div class="mockup-content" style="background-color:white; padding-bottom: 4em;">
+                 <div class="morph-button morph-button-modal morph-button-modal-2 morph-button-fixed">
                     <button class="button button-big" type="button">
                         Login.
                     </button>
@@ -950,6 +657,7 @@
                                         </label>
                                         <input autofocus="autofocus" name="accountUp" required type="text"/>
                                     </p>
+                                 	
                                     <p>
                                         <label>
                                             密码
@@ -1003,8 +711,8 @@
                     </div>
                 </div>
                 <!-- morph-button -->
-            </div>
         </div>
+       </div>
         <div class="container demo-1">
             <article id="display">
                 <div class="main">
@@ -1246,20 +954,16 @@
                     new UIMorphingButton( bttn, {
                         closeEl : '.icon-close',
                         onBeforeOpen : function() {
-                            // don't allow to scroll
-                            noScroll();
+                           
                         },
                         onAfterOpen : function() {
-                            // can scroll again
-                            canScroll();
+                           
                         },
                         onBeforeClose : function() {
-                            // don't allow to scroll
-                            noScroll();
+                           
                         },
                         onAfterClose : function() {
-                            // can scroll again
-                            canScroll();
+                           
                         }
                     } );
                 } );
@@ -1270,9 +974,7 @@
                 } );
             })();
         </script>
-        <div style="display:none">
-            <script charset="gb2312" language="JavaScript" src="http://v7.cnzz.com/stat.php?id=155540&web_id=155540">
-            </script>
-        </div>
+        
+
     </body>
 </html>

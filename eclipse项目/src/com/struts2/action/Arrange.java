@@ -2,22 +2,32 @@ package com.struts2.action;
 
 
 /**
- * 学生预约信息
+ * 瀛︾敓棰勭害淇℃伅
  */
 public class Arrange {
 	
-	private String TeacherAccount;	//教师账号
-	private String StudentAccount;	//学生的账号
-	private String ArrangeTime;		//预约时间
-	private String ArrangeReason;	//事由
-	private String SuccessFail;		//预约状态
-	private String StudentName;		//学生的真是姓名
-	private String StudentMajor;	//学生的专业
-	private String StudentPhone;	//学生的电话
-	private Integer ArrangeId; //预约编号						
+	private String TeacherAccount;	//鏁欏笀璐﹀彿
+	private String StudentAccount;	//瀛︾敓鐨勮处鍙�
+	private String ArrangeReason;	//浜嬬敱
+	private String SuccessFail;		//棰勭害鐘舵��
+	private String StudentName;		//瀛︾敓鐨勭湡鏄鍚�
+	private String StudentMajor;	//瀛︾敓鐨勪笓涓�
+	private String StudentPhone;	//瀛︾敓鐨勭數璇�
+	private Integer ArrangeId; //棰勭害缂栧彿						
     private String TeacherName;
-    private String commitornot;//是否确认提交
+    private String commitornot;//鏄惁纭鎻愪氦
+    private String ArrangeTime;
     
+    public String getArrangeTime() {
+    	return ArrangeTime;
+    }
+    public void setArrangeTime(String AllDay, String Year, String Month, String Day, String StartHour, String StartMinutes, String EndHour, String EndMinutes) {
+    	if("true".equals(AllDay)) {
+    		ArrangeTime = Year + "-" + Month + "-" + Day + "  "+  "ALLDAY";
+    	}else {
+    		ArrangeTime = Year + "-" + Month + "-" + Day + "  " + StartHour + ":" + StartMinutes + "——" + EndHour + ":" + EndMinutes;
+    	}
+    }
 	public String getCommitornot() {
 		return commitornot;
 	}
@@ -70,12 +80,6 @@ public class Arrange {
 	}
 	public void setStudentAccount(String studentAccount) {
 		StudentAccount = studentAccount;
-	}
-	public String getArrangeTime() {
-		return ArrangeTime;
-	}
-	public void setArrangeTime(String arrangeTime) {
-		ArrangeTime = arrangeTime;
 	}
 	public String getArrangeReason() {
 		return ArrangeReason;
