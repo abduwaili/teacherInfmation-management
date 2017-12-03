@@ -4,10 +4,30 @@ Source Host     : localhost:3306
 Source Database : management
 Target Host     : localhost:3306
 Target Database : management
-Date: 2017-11-12 13:01:10
+Date: 2017-12-03 14:23:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+-- ----------------------------
+-- Table structure for admin
+-- ----------------------------
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE `admin` (
+  `Id` int(20) NOT NULL,
+  `AdminName` varchar(20) NOT NULL,
+  `AdminPassword` varchar(20) NOT NULL,
+  `RealName` varchar(20) NOT NULL,
+  `Email` varchar(20) DEFAULT NULL,
+  `Phone` varchar(20) DEFAULT NULL,
+  `Photo` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of admin
+-- ----------------------------
+INSERT INTO `admin` VALUES ('1', 'abduwaili', 'abduwaili', '阿卜杜外力', '2696272844@qq.com', '17745135600', null);
+
 -- ----------------------------
 -- Table structure for arrange
 -- ----------------------------
@@ -17,7 +37,14 @@ CREATE TABLE `arrange` (
   `ArrangeId` int(100) NOT NULL AUTO_INCREMENT,
   `TeacherAccount` varchar(255) NOT NULL,
   `StudentAccount` varchar(255) NOT NULL,
-  `ArrangeTime` varchar(255) DEFAULT NULL,
+  `StartHour` varchar(255) DEFAULT NULL,
+  `StartMinutes` varchar(255) DEFAULT NULL,
+  `EndHour` varchar(255) DEFAULT NULL,
+  `EndMinutes` varchar(255) DEFAULT NULL,
+  `AllDay` varchar(255) DEFAULT NULL,
+  `ArrangeDay` varchar(255) DEFAULT NULL,
+  `ArrangeMonth` varchar(255) DEFAULT NULL,
+  `ArrangeYear` varchar(255) DEFAULT NULL,
   `ArrangeReason` varchar(255) DEFAULT NULL,
   `commitornot` varchar(255) DEFAULT NULL,
   `SuccessFail` varchar(255) DEFAULT NULL,
@@ -29,13 +56,12 @@ CREATE TABLE `arrange` (
   KEY `TeacherAccount_arrange` (`TeacherAccount`),
   CONSTRAINT `StudentAccount` FOREIGN KEY (`StudentAccount`) REFERENCES `student` (`StudentAccount`),
   CONSTRAINT `TeacherAccount_arrange` FOREIGN KEY (`TeacherAccount`) REFERENCES `teacher` (`TeacherAccount`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of arrange
 -- ----------------------------
-INSERT INTO `arrange` VALUES ('阿杜', '40', '1', '1', 'TuePm', 'hj', 'true', 'Success', '张永顺', '计算机科学与技术', 'jh');
-INSERT INTO `arrange` VALUES ('战德臣', '41', '2', '1', 'MonAm', '项目咨询', 'true', 'Success', '张永顺', '计算机科学与技术', '17745135600');
+INSERT INTO `arrange` VALUES ('刘宏伟', '42', '1', '1', '14', '30', '16', '0', 'false', '30', '11', '2017', '答辩', 'true', 'Fail', '张永顺', '计算机科学与技术', '17745135600');
 
 -- ----------------------------
 -- Table structure for schedule
@@ -43,26 +69,32 @@ INSERT INTO `arrange` VALUES ('战德臣', '41', '2', '1', 'MonAm', '项目咨�
 DROP TABLE IF EXISTS `schedule`;
 CREATE TABLE `schedule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `MonAm` varchar(255) DEFAULT 'none',
-  `MonPm` varchar(255) DEFAULT 'none',
-  `TueAm` varchar(255) DEFAULT 'none',
-  `TuePm` varchar(255) DEFAULT 'none',
-  `WedAm` varchar(255) DEFAULT 'none',
-  `WedPm` varchar(255) DEFAULT 'none',
-  `ThuAm` varchar(255) DEFAULT 'none',
-  `ThuPm` varchar(255) DEFAULT 'none',
-  `FriAm` varchar(255) DEFAULT 'none',
-  `FriPm` varchar(255) DEFAULT 'none',
+  `Year` varchar(255) DEFAULT 'none',
+  `AllDay` varchar(255) DEFAULT NULL,
+  `Month` varchar(255) DEFAULT 'none',
+  `Day` varchar(255) DEFAULT 'none',
+  `StartHour` varchar(255) DEFAULT 'none',
+  `StartMinutes` varchar(255) DEFAULT 'none',
+  `EndHour` varchar(255) DEFAULT 'none',
+  `EndMinutes` varchar(255) DEFAULT 'none',
+  `Arrange` varchar(255) DEFAULT 'none',
   `TeacherAccount` varchar(255) NOT NULL DEFAULT 'none',
+  `IsWatch` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `TeacherAccount_schedule` (`TeacherAccount`),
   CONSTRAINT `TeacherAccount_schedule` FOREIGN KEY (`TeacherAccount`) REFERENCES `teacher` (`TeacherAccount`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of schedule
 -- ----------------------------
-INSERT INTO `schedule` VALUES ('1', 'hj', '1', 'hj', '张永顺预约\r\n:预约理由:hj', '12', 'none', 'none', 'none', 'none', 'none', '1');
+INSERT INTO `schedule` VALUES ('1', '2017', 'false', '12', '1', '8', '10', '12', '00', '小顺子找我', '1', 'true');
+INSERT INTO `schedule` VALUES ('2', '2017', 'true', '12', '02', null, null, null, null, '请小顺子吃饭', '1', 'true');
+INSERT INTO `schedule` VALUES ('3', '2017', 'false', '12', '09', '11', '03', '05', '06', '出差', '1', 'true');
+INSERT INTO `schedule` VALUES ('4', '2017', 'false', '12', '01', '11', '11', '15', '02', '国际会议', '1', 'false');
+INSERT INTO `schedule` VALUES ('5', '2017', 'true', '12', '12', null, null, null, null, '研究863', '1', 'false');
+INSERT INTO `schedule` VALUES ('6', '2017', 'false', '12', '05', '02', '56', '06', '52', '早饭', '1', 'true');
+INSERT INTO `schedule` VALUES ('7', '2017', 'false', '12', '03', '08', '02', '12', '32', '睡觉', '1', 'true');
 
 -- ----------------------------
 -- Table structure for student
@@ -78,14 +110,14 @@ CREATE TABLE `student` (
   `Grade` varchar(255) DEFAULT NULL,
   `Phone` varchar(255) DEFAULT NULL,
   `Email` varchar(255) DEFAULT NULL,
+  `IsSiginUp` varchar(10) NOT NULL DEFAULT 'False',
   PRIMARY KEY (`StudentAccount`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of student
 -- ----------------------------
-INSERT INTO `student` VALUES ('images/girl.jpg', '1', '1', '张永顺', '计算机科学与技术', '计算机学院', '2015', '18846419912', null);
-INSERT INTO `student` VALUES (null, '1150310108', '000000', '罗伯特', '计算机科学与技术', '哈尔滨工业大学', '大三', '18800428839', '2224127900@qq.com');
+INSERT INTO `student` VALUES ('images/girl.jpg', '1', '1', '张永顺', '计算机科学与技术', '计算机学院', '2015', '18846419912', null, 'True');
 
 -- ----------------------------
 -- Table structure for teacher
@@ -105,15 +137,15 @@ CREATE TABLE `teacher` (
   `FSRA` varchar(255) DEFAULT NULL,
   `Phone` varchar(255) DEFAULT NULL,
   `Email` varchar(255) DEFAULT NULL,
+  `IsSiginUp` varchar(10) NOT NULL DEFAULT 'False',
   PRIMARY KEY (`TeacherAccount`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of teacher
 -- ----------------------------
-INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/%E5%88%98%E5%AE%8F%E4%BC%9F/1942746?fr=aladdin', '10000000', '1', '1', '刘宏伟', 'images/girl.jpg', '计算机学院', '教授', '计算思维', '2002----目前：哈尔滨工业大学计算机科学与技术学院教授、博士生导', '国家一等奖', '18846419912', '10000001@qq.com');
-INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/%E6%88%98%E5%BE%B7%E8%87%A3/1937013?fr=aladdin', '100', '2', '2', '战德臣', 'images/me.jpg', '哈尔滨工业大学', '哈尔滨工业大学计算机科学与技术学院教授、博士生导师', '计算思维', '1986----1989：毕业于哈尔滨工业大学计算机应用专业获硕士学位\r\n1990----1993：毕业于哈尔滨工业大学计算机应用专业获博士学位\r\n1989----1992：哈尔滨工业大学计算机科学与工程系助教\r\n1992----1995：哈尔滨工业大学计算机科学与工程系讲师\r\n1995----1999：哈尔滨工业大学计算机科学与工程系副教授\r\n1999----2002：哈尔滨工业大学计算机科学与技术学院教授\r\n2002----目前：哈尔滨工业大学计算机科学与技术学院教授、博士生导师', '国家一等奖', '10000001', '10000001@qq.com');
-INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/%E6%88%98%E5%BE%B7%E8%87%A3/1937013?fr=aladdin', '100', '3', '3', '徐汉川', 'images/me.jpg', '哈尔滨工业大学', '哈尔滨工业大学计算机科学与技术学院教授、博士生导师', '计算思维', '2002----目前：哈尔滨工业大学计算机科学与技术学院教授、博士生导', '国家一等奖', '18846419912', '10000001@qq.com');
-INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/%E5%88%98%E5%AE%8F%E4%BC%9F/1942746?fr=aladdin', '100', '4', '4', '姜守旭', 'images/me.jpg', 'a', 'a', 'a', 'a', 'a', 'a', 'a');
-INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/%E5%88%98%E5%AE%8F%E4%BC%9F/1942746?fr=aladdin', '100', '5', '5', '王义和', 'images/me.jpg', 'b', 'b', 'b', 'b', 'b', 'b', 'b');
-INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/%E5%88%98%E5%AE%8F%E4%BC%9F/1942746?fr=aladdin', '100', '6', '6', '唐朔飞', 'images/me.jpg', 'c', 'c', 'c', 'c', 'c', 'c', 'c');
+INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/刘宏伟/20400972?fr=aladdin', '10000000', '1', '1', '刘宏伟', 'images/liuhongwei.jpg', '计算机学院', '哈尔滨工业大学计算机科学与技术学院教授', '计算机', '刘宏伟，博士，教授，博士生导师，哈工大计算机科学与技术学院计算机硬件基础教研室主任，中国计算机学会高级会员，中国计算机学会体系结构专业委员会常委、中国计算机学会容错计算专业委员会专委。', '国家一等奖', '18846419912', '10000001@qq.com', 'True');
+INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/战德臣/1937013?fr=aladdin', '100', '2', '2', '战德臣', 'images/zhandechen.jpg', '计算机学院', '哈尔滨工业大学计算机科学与技术学院教授', '计算思', '战德臣，国家工业自动化系统与集成标准化技术委员会委员 黑龙江省制造业信息化专家组成员 国家863/CIMS主题企业管理与电子商务系统专题工作组成员。', '国家一等奖', '18846419912', '10000001@qq.com', 'True');
+INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/姜守旭/10900364?fr=aladdin', '100', '4', '4', '姜守旭', 'images/jiangshouxu.jpg', '计算机学院', '哈尔滨工业大学计算机科学与技术学院教授', '计算机', '中国计算机学会高级会员\r\nYOCSEF哈尔滨学术委员会委员\r\n“计算机科学与技术核心课程”国家级教学团队成员\r\n中国民主促进会会员\r\n哈尔滨市南岗区第12届政协委员', 'a', '18846419912', '10000001@qq.com', 'True');
+INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/王义和/46153?fr=aladdin', '100', '5', '5', '王义和', 'images/wangyihe.jpg', '计算机学院', '哈尔滨工业大学计算机科学与技术学院教授', '就三级', '王义和，哈尔滨工业大学计算机教授。主讲集合与图论、形式语言、组合数学等计算机基础理论、专业理论。', 'b', '18846419912', '10000001@qq.com', 'True');
+INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/唐朔飞/5718942?fr=aladdin', '100', '6', '6', '唐朔飞', 'images/tangshuofei.jpg', '计算机学院', '哈尔滨工业大学计算机科学与技术学院教授', '计算机', '第八、九届哈尔滨市政治协商委员会委员，现任校、院教学督导组成员。1999年被评为哈工大“十佳三育人”标兵。自1986年获哈工大首届教学一等奖后，又获得各级各类教学奖励18次，2000年获黑龙江省教学成果一等奖。', 'c', '18846419912', '10000001@qq.com', 'True');
