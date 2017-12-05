@@ -4,7 +4,7 @@ Source Host     : localhost:3306
 Source Database : management
 Target Host     : localhost:3306
 Target Database : management
-Date: 2017-12-03 14:23:53
+Date: 2017-12-04 12:49:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -56,12 +56,13 @@ CREATE TABLE `arrange` (
   KEY `TeacherAccount_arrange` (`TeacherAccount`),
   CONSTRAINT `StudentAccount` FOREIGN KEY (`StudentAccount`) REFERENCES `student` (`StudentAccount`),
   CONSTRAINT `TeacherAccount_arrange` FOREIGN KEY (`TeacherAccount`) REFERENCES `teacher` (`TeacherAccount`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of arrange
 -- ----------------------------
 INSERT INTO `arrange` VALUES ('刘宏伟', '42', '1', '1', '14', '30', '16', '0', 'false', '30', '11', '2017', '答辩', 'true', 'Fail', '张永顺', '计算机科学与技术', '17745135600');
+INSERT INTO `arrange` VALUES ('刘宏伟', '44', '1', '1', '00', '00', '09', '59', 'false', '01', '12', '2017', '睡觉', 'true', 'false', '张永顺1212', '计算机科学与技术', '18846419912');
 
 -- ----------------------------
 -- Table structure for schedule
@@ -83,7 +84,7 @@ CREATE TABLE `schedule` (
   PRIMARY KEY (`id`),
   KEY `TeacherAccount_schedule` (`TeacherAccount`),
   CONSTRAINT `TeacherAccount_schedule` FOREIGN KEY (`TeacherAccount`) REFERENCES `teacher` (`TeacherAccount`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of schedule
@@ -95,6 +96,7 @@ INSERT INTO `schedule` VALUES ('4', '2017', 'false', '12', '01', '11', '11', '15
 INSERT INTO `schedule` VALUES ('5', '2017', 'true', '12', '12', null, null, null, null, '研究863', '1', 'false');
 INSERT INTO `schedule` VALUES ('6', '2017', 'false', '12', '05', '02', '56', '06', '52', '早饭', '1', 'true');
 INSERT INTO `schedule` VALUES ('7', '2017', 'false', '12', '03', '08', '02', '12', '32', '睡觉', '1', 'true');
+INSERT INTO `schedule` VALUES ('8', '2017', 'false', '12', '02', '01', '01', '02', '02', '睡觉', '1', 'true');
 
 -- ----------------------------
 -- Table structure for student
@@ -117,7 +119,7 @@ CREATE TABLE `student` (
 -- ----------------------------
 -- Records of student
 -- ----------------------------
-INSERT INTO `student` VALUES ('images/girl.jpg', '1', '1', '张永顺', '计算机科学与技术', '计算机学院', '2015', '18846419912', null, 'True');
+INSERT INTO `student` VALUES ('images/1.jpg', '1', '1', '张永顺1212', '计算机科学与技术', '计算机学院', '2015', '18846419912', null, 'True');
 
 -- ----------------------------
 -- Table structure for teacher
@@ -144,7 +146,7 @@ CREATE TABLE `teacher` (
 -- ----------------------------
 -- Records of teacher
 -- ----------------------------
-INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/刘宏伟/20400972?fr=aladdin', '10000000', '1', '1', '刘宏伟', 'images/liuhongwei.jpg', '计算机学院', '哈尔滨工业大学计算机科学与技术学院教授', '计算机', '刘宏伟，博士，教授，博士生导师，哈工大计算机科学与技术学院计算机硬件基础教研室主任，中国计算机学会高级会员，中国计算机学会体系结构专业委员会常委、中国计算机学会容错计算专业委员会专委。', '国家一等奖', '18846419912', '10000001@qq.com', 'True');
+INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/刘宏伟/20400972?fr=aladdin', '10000000', '1', '1', '刘宏伟', 'images/teacher/1.jpg', '计算机学院', '哈尔滨工业大学计算机科学与技术学院教授', '计算机', '刘宏伟，博士，教授，博士生导师，哈工大计算机科学与技术学院计算机硬件基础教研室主任，中国计算机学会高级会员，中国计算机学会体系结构专业委员会常委、中国计算机学会容错计算专业委员会专委。', '国家一等奖', '18846419912', '10000001@qq.com', 'True');
 INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/战德臣/1937013?fr=aladdin', '100', '2', '2', '战德臣', 'images/zhandechen.jpg', '计算机学院', '哈尔滨工业大学计算机科学与技术学院教授', '计算思', '战德臣，国家工业自动化系统与集成标准化技术委员会委员 黑龙江省制造业信息化专家组成员 国家863/CIMS主题企业管理与电子商务系统专题工作组成员。', '国家一等奖', '18846419912', '10000001@qq.com', 'True');
 INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/姜守旭/10900364?fr=aladdin', '100', '4', '4', '姜守旭', 'images/jiangshouxu.jpg', '计算机学院', '哈尔滨工业大学计算机科学与技术学院教授', '计算机', '中国计算机学会高级会员\r\nYOCSEF哈尔滨学术委员会委员\r\n“计算机科学与技术核心课程”国家级教学团队成员\r\n中国民主促进会会员\r\n哈尔滨市南岗区第12届政协委员', 'a', '18846419912', '10000001@qq.com', 'True');
 INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/王义和/46153?fr=aladdin', '100', '5', '5', '王义和', 'images/wangyihe.jpg', '计算机学院', '哈尔滨工业大学计算机科学与技术学院教授', '就三级', '王义和，哈尔滨工业大学计算机教授。主讲集合与图论、形式语言、组合数学等计算机基础理论、专业理论。', 'b', '18846419912', '10000001@qq.com', 'True');
