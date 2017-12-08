@@ -17,7 +17,14 @@ public class Arrange {
     private String TeacherName;
     private String commitornot;//鏄惁纭鎻愪氦
     private String ArrangeTime;
+    private String AllDay;
     
+    public String getAllDay() {
+    	return AllDay;
+    }
+    public void setAllDay(String allDay) {
+    	AllDay = allDay;
+    }
     public String getArrangeTime() {
     	return ArrangeTime;
     }

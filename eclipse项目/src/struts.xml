@@ -70,19 +70,25 @@
 		        	</result>
 	        	</action>
 	        	
-	        	<!--更改老师信息-->
-	        	<action  name="changeTeacherInf" class="com.struts2.action.WebFunction" method="changeTeacherInf">
+	        	
+	        	<!--更改日程-->
+	        	<action  name="changeSchedule" class="com.struts2.action.WebFunction" method="changeSchedule">
+		        	<result type="json">
+		        	<param name="root">result</param>
+		        	</result>
+	        	</action>
+	        	<action  name="fchangeSchedule" class="com.struts2.action.WebFunction" method="fchangeSchedule">
+		        	<result type="json">
+		        	<param name="root">result</param>
+		        	</result>
+	        	</action>
+	        	<!--删除日程-->
+	        	<action  name="deleteSchedule" class="com.struts2.action.WebFunction" method="deleteSchedule">
 		        	<result type="json">
 		        	<param name="root">result</param>
 		        	</result>
 	        	</action>
 	        	
-	        	<!--更改学生信息-->
-	        	<action  name="changeStudentInf" class="com.struts2.action.WebFunction" method="changeStudentInf">
-		        	<result type="json">
-		        	<param name="root">result</param>
-		        	</result>
-	        	</action>
 	        	
                 <!--随机选取老师显示 -->
 	        	<action  name="chooseTeacher" class="com.struts2.action.WebFunction" method="chooseTeacher">
@@ -97,9 +103,14 @@
 		        	<param name="root">result</param>
 		        	</result>
 	        	</action>
-				
-				<!--上传头像 -->
-	        	<action  name="UploadPhoto" class="com.struts2.action.UploadPhoto">
+	        	
+	        	<!--教师上传头像 -->
+	        	<action  name="TeacherUploadPhoto" class="com.struts2.action.UploadPhoto">
+		        	<result name="sucess" type="redirect">index.jsp</result>
+		        	<result name="error" type="redirect">photo.jsp</result>
+	        	</action>
+	        	<!--学生上传头像 -->
+	        	<action  name="StudentAdminAction" class="com.struts2.action.UploadPhoto" method="StudentAdminAction">
 		        	<result name="sucess" type="redirect">index.jsp</result>
 		        	<result name="error" type="redirect">photo.jsp</result>
 	        	</action>
@@ -159,21 +170,19 @@
 		        	</result>
 		        </action>
 		        
-		         <!-- 修改学生信息 -->
-	        	<action  name="StudentChange" class="com.admin.action.AdminAction"  method="StudentChange">
+		        <!--更改老师信息-->
+	        	<action  name="changeTeacherInf" class="com.struts2.action.WebFunction" method="changeTeacherInf">
 		        	<result type="json">
 		        	<param name="root">result</param>
 		        	</result>
-		        </action>
-		        
-		        <!-- 修改教师信息 -->
-	        	<action  name="TeacherChange" class="com.admin.action.AdminAction"  method="TeacherChange">
+	        	</action>
+	        	
+	        	<!--更改学生信息-->
+	        	<action  name="changeStudentInf" class="com.struts2.action.WebFunction" method="changeStudentInf">
 		        	<result type="json">
 		        	<param name="root">result</param>
 		        	</result>
-		        </action>
-		        
-		        
+	        	</action>
          </package>
 
 </struts>

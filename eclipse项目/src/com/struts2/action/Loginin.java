@@ -156,6 +156,7 @@ public class Loginin extends ActionSupport implements ServletRequestAware {
 
 						session.put("isLogin", "true");
 						session.put("isTeacher", "false");
+						session.put("isStudent", "true");
 						session.put("StudentAccount", Account);
 						ret.put("ret", "Success");
 

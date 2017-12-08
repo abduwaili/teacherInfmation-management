@@ -69,28 +69,10 @@ public class WebFunction extends ActionSupport implements ServletRequestAware {
 				ret.put("searchTeacherPosition", rs.getString("Position"));
 				ret.put("searchTeacherImage", rs.getString("Picture"));
 				ret.put("searchTeacherPhone", rs.getString("Phone"));
+				ret.put("searchTeacherBaiKe", rs.getString("BaiKe"));
 				TeacherAccount = rs.getString("TeacherAccount");
-
 				conn_0 = DatabaseConnection.getConnection();
 				stmt_0 = conn_0.createStatement();
-				String sql_0 = "select *from schedule where TeacherAccount='" + TeacherAccount + "'";
-				rs_0 = stmt_0.executeQuery(sql_0);
-				int cnt = 0;
-				
-				while(rs_0.next()) {
-					session.put("month" + cnt, rs_0.getString("Month"));
-					session.put("day" + cnt, rs_0.getString("Day"));
-					session.put("year" + cnt, rs_0.getString("Year"));
-					session.put("startHour" + cnt, rs_0.getString("StartHour"));
-					session.put("startMinutes" + cnt, rs_0.getString("StartMinutes"));
-					session.put("endHour" + cnt, rs_0.getString("EndHour"));
-					session.put("endMinutes" + cnt, rs_0.getString("EndMinutes"));
-					session.put("arrange" + cnt, rs_0.getString("Arrange"));
-					session.put("allDay" + cnt, rs_0.getString("AllDay"));
-					cnt++;
-				}
-				session.put("cnt", cnt);
-				
 				session.put("searchTeacherId", TeacherAccount);
 				ret.put("ret", "Success");
 			} else {
@@ -110,64 +92,82 @@ public class WebFunction extends ActionSupport implements ServletRequestAware {
 	public String addOrder() {
 		ActionContext context = ActionContext.getContext();
 		session = context.getSession();
-		String allDay = request.getParameter("allDay");
-		String startHour = request.getParameter("startHour");
-		String startMinutes = request.getParameter("startMinutes");
-		String endHour = request.getParameter("endHour");
-		String endMinutes = request.getParameter("endMinutes");
-		String year = request.getParameter("year");
-		String month = request.getParameter("month");
-		String day = request.getParameter("day");
-
-		String orderReason = request.getParameter("orderReason");
-		String orderTeacher = request.getParameter("orderTeacher");
-		String orderPhone = request.getParameter("orderPhone");
+		String date = request.getParameter("date");
+		String start = request.getParameter("start");
+		String end = request.getParameter("end");
+		String schedule = request.getParameter("schedule");
+		String teacher = request.getParameter("teacher");
+		String[] dateArray = date.split("-");
+        String[] startArray = start.split(":");
+        String[] endArray = end.split(":");
+        String year = dateArray[0];
+        String month = dateArray[1];
+        String day = dateArray[2];
+        String allDay = "false";
+        String startHour = null;
+        String startMinutes = null;
+        String endHour = null;
+        String endMinutes = null;
+        
+        if("".equals(start)) {
+        	if("".equals(end)) {
+        		allDay = "true";
+        	}else {
+        		startHour = "0";
+        		startMinutes = "0";
+        		endHour = endArray[0];
+        		endMinutes = endArray[1];
+        	}
+        }else {
+        	startHour = startArray[0];
+    		startMinutes = startArray[1];
+        	if("".equals(end)) {
+        		endHour = "0";
+        		endMinutes = "0";
+        	}else {
+        		endHour = endArray[0];
+        		endMinutes = endArray[1];
+        	}
+        }
 		Connection conn;
 		Statement stmt;
 		ResultSet rs;
 		Connection conn_0;
 		try {
+			
 			conn = DatabaseConnection.getConnection();
 			stmt = conn.createStatement();
-			String sql = "select *from teacher where TeacherName='" + orderTeacher + "'";
+			String sql = "select *from teacher where TeacherName='" + teacher + "'";
 			rs = stmt.executeQuery(sql);
 			if (rs.next()) {
-				TeacherAccount = rs.getString("TeacherAccount");
-
-				Connection conn1;
-				Statement stmt1;
-				ResultSet rs1;
-				conn1 = DatabaseConnection.getConnection();
-				stmt1 = conn1.createStatement();
-				String sql1 = "select *from schedule where TeacherAccount='" + TeacherAccount + "'";
-				rs1 = stmt1.executeQuery(sql1);
-
-				// 增加预约信息
-
+				
+				TeacherAccount = rs.getString("TeacherAccount");		
+				
 				Student student = (Student) session.get("student");// 获取学生信息
+				 
 				conn_0 = DatabaseConnection.getConnection();
-				String sql1_0 = "insert into arrange(TeacherName,TeacherAccount,StudentAccount,AllDay,ArrangeReason,commitornot,SuccessFail,StudentName,StudentMajor,StudentPhone,ArrangeYear,ArrangeMonth,ArrangeDay,StartHour,StartMinutes,EndHour,EndMinutes)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				String sql1_0 = "insert into arrange(EndMinutes,TeacherAccount,StudentAccount,AllDay,ArrangeReason,commitornot,SuccessFail,StudentName,StudentMajor,StudentPhone,ArrangeYear,ArrangeMonth,ArrangeDay,StartHour,StartMinutes,EndHour,TeacherName)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 				PreparedStatement ps_0 = (PreparedStatement) conn_0.prepareStatement(sql1_0);
-				ps_0.setString(1, orderTeacher);
+				ps_0.setString(1, endMinutes);
 				ps_0.setString(2, TeacherAccount);
 				ps_0.setString(3, student.getStudentAccount());
 				ps_0.setString(4, allDay);
-				ps_0.setString(5, orderReason);
+				ps_0.setString(5, schedule);
 				ps_0.setString(6, "true");
 				ps_0.setString(7, "false");
 				ps_0.setString(8, student.getStudentName());
 				ps_0.setString(9, student.getMajor());
-				ps_0.setString(10, orderPhone);
+				ps_0.setString(10, student.getPhone()); 
 				ps_0.setString(11, year);
 				ps_0.setString(12, month);
 				ps_0.setString(13, day);
 				ps_0.setString(14, startHour);
 				ps_0.setString(15, startMinutes);
 				ps_0.setString(16, endHour);
-				ps_0.setString(17, endMinutes);
+				ps_0.setString(17, teacher);
+				
 				ps_0.executeUpdate();
-
-				// 更新session
+				
 				Connection conn_1;
 				Statement stmt_1;
 				ResultSet rs_1;
@@ -268,8 +268,76 @@ public class WebFunction extends ActionSupport implements ServletRequestAware {
 		String start = request.getParameter("start");
 		String end = request.getParameter("end");
 		String schedule = request.getParameter("schedule");
-		String isWatch = request.getParameter("isWatch");
 		String TeacherAccount = (String) session.get("TeacherAccount");
+		String[] dateArray = date.split("-");
+        String[] startArray = start.split(":");
+        String[] endArray = end.split(":");
+        String year = dateArray[0];
+        String month = dateArray[1];
+        String day = dateArray[2];
+        String allDay = "false";
+        String startHour = null;
+        String startMinutes = null;
+        String endHour = null;
+        String endMinutes = null;
+        if("".equals(start)) {
+        	if("".equals(end)) {
+        		allDay = "true";
+        	}else {
+        		startHour = "0";
+        		startMinutes = "0";
+        		endHour = endArray[0];
+        		endMinutes = endArray[1];
+        	}
+        }else {
+        	startHour = startArray[0];
+    		startMinutes = startArray[1];
+        	if("".equals(end)) {
+        		endHour = "0";
+        		endMinutes = "0";
+        	}else {
+        		endHour = endArray[0];
+        		endMinutes = endArray[1];
+        	}
+        }
+
+        Connection conn;
+        Statement stmt_0;
+		ResultSet rs_0;
+		try {
+			conn = DatabaseConnection.getConnection();
+			stmt_0 = conn.createStatement();
+			String sql1_0 = "";
+			if("true".equals(allDay)) {
+				sql1_0 =  "select * from schedule where AllDay='" + allDay + "' and Arrange='" + schedule + "' and TeacherAccount='" + TeacherAccount + "' and Year='" + year + "' and Month='" + month + "' and Day='" + day + "'";
+			}else {
+				sql1_0 =  "select * from schedule where Arrange='" + schedule + "' and TeacherAccount='" + TeacherAccount + "' and Year ='" + year + "' and Month ='" + month + "' and Day='" + day + "' and StartHour='" + startHour + "' and  StartMinutes='" + startMinutes + "' and EndHour='" + endHour + "' and EndMinutes='" + endMinutes + "'";	
+			}		
+			
+			rs_0 = stmt_0.executeQuery(sql1_0);
+			if(rs_0.next()) {
+				ret.put("ret", "Success");
+				session.put("id", rs_0.getInt(1));
+			}else {
+				ret.put("ret", "Fail");
+			}		
+		} catch (Exception e) {
+			ret.put("ret", "Fail");
+		}
+		JSONObject json = JSONObject.fromObject(ret);
+		result = json.toString();
+		return SUCCESS; 
+	}
+	public String fchangeSchedule() {
+		ActionContext context = ActionContext.getContext();
+		session = context.getSession();
+		String date = request.getParameter("date");
+		String start = request.getParameter("start");
+		String end = request.getParameter("end");
+		String schedule = request.getParameter("schedule");
+		String isWatch = request.getParameter("isWatch");
+		int id = (int)session.get("id");
+		
 		String[] dateArray = date.split("-");
         String[] startArray = start.split(":");
         String[] endArray = end.split(":");
@@ -304,26 +372,23 @@ public class WebFunction extends ActionSupport implements ServletRequestAware {
         Connection conn;
 		try {
 			conn = DatabaseConnection.getConnection();
-			String sql1_0 = "";
-			if("true".equals(allDay)) {
-				sql1_0 =  "delete from schedule where teacher=1";
-			}else {
-				
-			}		
+			String sql1_0 = "update schedule set Year=?,AllDay=?,Month=?,Day=?,StartHour=?,StartMinutes=?,EndHour=?,EndMinutes=?,Arrange=?,IsWatch=? where id=?";
+
 			PreparedStatement ps_0 = (PreparedStatement) conn.prepareStatement(sql1_0);
 			ps_0.setString(1, year);
-			ps_0.setString(2, month);
-			ps_0.setString(3, day);
-			ps_0.setString(4, allDay);
+			ps_0.setString(2, allDay);
+			ps_0.setString(3, month);
+			ps_0.setString(4, day);
 			ps_0.setString(5, startHour);
 			ps_0.setString(6, startMinutes);
 			ps_0.setString(7, endHour);
 			ps_0.setString(8, endMinutes);
 			ps_0.setString(9, schedule);
-			ps_0.setString(10, TeacherAccount);
-			ps_0.setString(11, isWatch);
+			ps_0.setString(10, isWatch);
+			ps_0.setInt(11, id);
 			ps_0.executeUpdate();
-			ret.put("ret", "Success");
+		
+			ret.put("ret", "Success");  
 			// session.put(, schedule);更新日程
 		} catch (Exception e) {
 			ret.put("ret", "Fail");
@@ -371,31 +436,43 @@ public class WebFunction extends ActionSupport implements ServletRequestAware {
         		endMinutes = endArray[1];
         	}
         }
+    
         Connection conn;
+        Statement stmt_0;
+        Connection conn1;
+        Statement stmt_1;
+		ResultSet rs_0;
+		int rs_1;
 		try {
 			conn = DatabaseConnection.getConnection();
-			String sql1_0 = "insert into schedule(Year,Month,Day,AllDay,StartHour,StartMinutes,EndHour,EndMinutes,Arrange,TeacherAccount)values(?,?,?,?,?,?,?,?,?,?)";
-			PreparedStatement ps_0 = (PreparedStatement) conn.prepareStatement(sql1_0);
-			ps_0.setString(1, year);
-			ps_0.setString(2, month);
-			ps_0.setString(3, day);
-			ps_0.setString(4, allDay);
-			ps_0.setString(5, startHour);
-			ps_0.setString(6, startMinutes);
-			ps_0.setString(7, endHour);
-			ps_0.setString(8, endMinutes);
-			ps_0.setString(9, schedule);
-			ps_0.setString(10, TeacherAccount);
-			ps_0.executeUpdate();
-			ret.put("ret", "Success");
-			// session.put(, schedule);更新日程
+			stmt_0 = conn.createStatement();
+			String sql1_0 = "";
+			if("true".equals(allDay)) {
+				sql1_0 =  "select * from schedule where AllDay='" + allDay + "' and Arrange='" + schedule + "' and TeacherAccount='" + TeacherAccount + "' and Year='" + year + "' and Month='" + month + "' and Day='" + day + "'";
+			}else {
+				sql1_0 =  "select * from schedule where Arrange='" + schedule + "' and TeacherAccount='" + TeacherAccount + "' and Year ='" + year + "' and Month ='" + month + "' and Day='" + day + "' and StartHour='" + startHour + "' and  StartMinutes='" + startMinutes + "' and EndHour='" + endHour + "' and EndMinutes='" + endMinutes + "'";	
+			}		
+			
+			rs_0 = stmt_0.executeQuery(sql1_0);
+		
+			if(rs_0.next()) {
+		        conn1 = DatabaseConnection.getConnection();
+				stmt_1 = conn.createStatement();
+			
+				String sql1_1 = "delete from schedule where id=" + rs_0.getInt(1) + "";
+				rs_1 = stmt_0.executeUpdate(sql1_1);
+	
+				ret.put("ret", "Success");	
+			}else {
+				ret.put("ret", "NotExist");
+			}		
 		} catch (Exception e) {
-			ret.put("ret", "Fail");
+			ret.put("ret", "Success");
 		}
 		JSONObject json = JSONObject.fromObject(ret);
 		result = json.toString();
 		return SUCCESS; 
-	}
+	} 
 	public String addSchedule() {
 		ActionContext context = ActionContext.getContext();
 		session = context.getSession();
@@ -463,11 +540,9 @@ public class WebFunction extends ActionSupport implements ServletRequestAware {
 		return SUCCESS; 
 	}
 
-	/**********
-	 * 鏁欏笀閫氳繃棰勭害
-	 **********/
 	public String teacherAgreeOrder() {
 		String id = request.getParameter("id");
+
 		ActionContext context = ActionContext.getContext();
 		session = context.getSession();
 		String TeacherAccount = (String) session.get("TeacherAccount");
@@ -475,10 +550,17 @@ public class WebFunction extends ActionSupport implements ServletRequestAware {
 		Connection conn_1;
 		Statement stmt_1;
 		ResultSet rs_1;
-		String time = "";
+		String year = "";
+		String month = "";
+		String day = "";
+		String startMinutes = "";
+		String startHour = "";
+		String endHour = "";
+		String endMinutes = "";
 		String reson = "";// 棰勭害鐞嗙敱
 		String student = "";
 		String phone = "";
+		String allDay = "";
 		try {
 			conn = DatabaseConnection.getConnection();
 			String sql = "update arrange set SuccessFail=? where ArrangeId=?";
@@ -491,10 +573,10 @@ public class WebFunction extends ActionSupport implements ServletRequestAware {
 			stmt_1 = conn_1.createStatement();
 			String sql_1 = "select * from arrange where TeacherAccount='" + TeacherAccount + "'";
 			rs_1 = stmt_1.executeQuery(sql_1);
-			
+		
 			ArrayList<Arrange> L = new ArrayList<Arrange>();
 			while (rs_1.next()) {
-				
+
 				if (rs_1.getString("SuccessFail").equals("false")) {
 					Arrange temp = new Arrange();
 					temp.setTeacherAccount(rs_1.getString("TeacherAccount"));
@@ -512,10 +594,18 @@ public class WebFunction extends ActionSupport implements ServletRequestAware {
 				}
 				if (rs_1.getInt("ArrangeId") == Integer.parseInt(id)) {
 					reson = rs_1.getString("ArrangeReason");
-					time = rs_1.getString("ArrangeTime");
+					year = rs_1.getString("ArrangeYear");
+					month = rs_1.getString("ArrangeMonth");
+					day = rs_1.getString("ArrangeDay");
+				    startHour = rs_1.getString("StartHour");
+				    startMinutes = rs_1.getString("StartMinutes");
+				    endHour = rs_1.getString("EndHour");
+				    endMinutes = rs_1.getString("EndMinutes");
 					phone = rs_1.getString("StudentPhone");
+					allDay = rs_1.getString("AllDay");
 					student = rs_1.getString("StudentName");
 					reson = student + "预约\r\n:" + "预约理由:" + reson + ". 联系方式：" + phone;
+					
 				}
 			}
 			ret.put("ret", "Success");
@@ -525,14 +615,21 @@ public class WebFunction extends ActionSupport implements ServletRequestAware {
 			Connection conn1;
 			try {
 				conn1 = DatabaseConnection.getConnection();
-				String sql1 = "update schedule set " + time + "=? where TeacherAccount=?";
+				String sql1 = "insert into schedule(Year,Month,Day,AllDay,StartHour,StartMinutes,EndHour,EndMinutes,Arrange,TeacherAccount,IsWatch)values(?,?,?,?,?,?,?,?,?,?,?)";
 				PreparedStatement ps1 = conn1.prepareStatement(sql1);
-				ps1.setString(1, reson);
-				ps1.setString(2, TeacherAccount);
+				ps1.setString(1, year);
+				ps1.setString(2, month);
+				ps1.setString(3, day);
+				ps1.setString(4, allDay);
+				ps1.setString(5, startHour);
+				ps1.setString(6, startMinutes);
+				ps1.setString(7, endHour);
+				ps1.setString(8, endMinutes);
+				ps1.setString(9, reson);
+				ps1.setString(10, TeacherAccount);
+				ps1.setString(11, "true");
 				ps1.executeUpdate();
 				ret.put("ret", "Success");
-				session.put(time, reson);
-				
 			} catch (Exception e) {
 				ret.put("ret", "Fail");
 			}
@@ -623,6 +720,7 @@ public class WebFunction extends ActionSupport implements ServletRequestAware {
 			int t2 = t1 + 1;
 			int t3 = t2 + 1;
 			
+
 			conn1 = DatabaseConnection.getConnection();
 			stmt1 = conn1.createStatement();
 			String sql1 = "select *from teacher";
@@ -661,6 +759,7 @@ public class WebFunction extends ActionSupport implements ServletRequestAware {
 		}
 		JSONObject json = JSONObject.fromObject(ret);
 		result = json.toString();
+		
 		return SUCCESS;
 	}
 	public String showSchedule() {
@@ -679,7 +778,8 @@ public class WebFunction extends ActionSupport implements ServletRequestAware {
 			if("true".equals(isTeacher)) {
 				 sql_0 = "select *from schedule where TeacherAccount='" + TeacherAccount + "'";
 			}else {
-				sql_0 = "select *from schedule where StudentAccount='" + StudentAccount + "'";
+				TeacherAccount = (String) session.get("searchTeacherId");
+				sql_0 = "select *from schedule where TeacherAccount='" + TeacherAccount + "'";
 			}
 			rs_0 = stmt_0.executeQuery(sql_0);
 			int cnt = 0;
@@ -692,34 +792,36 @@ public class WebFunction extends ActionSupport implements ServletRequestAware {
 					ele.put("year", rs_0.getString("Year"));
 					ele.put("month", rs_0.getString("Month"));
 					ele.put("day", rs_0.getString("Day"));
+					ele.put("isWatch", rs_0.getString("IsWatch"));
 				}else {
 					ele.put("title", rs_0.getString("Arrange"));
 					ele.put("allDay", "false");
 					ele.put("year", rs_0.getString("Year"));
 					ele.put("month", rs_0.getString("Month"));
 					ele.put("day", rs_0.getString("Day"));
-					ele.put("startHour", rs_0.getString("StartHour"));
+					ele.put("startHour", rs_0.getString("StartHour")); 
 					ele.put("startMinutes", rs_0.getString("StartMinutes"));
 					ele.put("endHour", rs_0.getString("EndHour"));
-					ele.put("endMinutes", rs_0.getString("EndMinutes"));
-					
+					ele.put("endMinutes", rs_0.getString("EndMinutes"));	
+					ele.put("isWatch", rs_0.getString("IsWatch"));
 				}
 				L.add(ele);
 				cnt++;
 			}
 			ret.put("cnt", cnt);
 			ret.put("schedule", L);
-		
+
 		}catch(Exception e) {
 			
 		}
 		JSONObject json = JSONObject.fromObject(ret);
 		result = json.toString();
+		
 		return SUCCESS;
 	}
 	
-	//修改学生信息
-	public String changeStudentInf() {
+	
+public String changeStudentInf() {
 		
 		ActionContext context = ActionContext.getContext();
 		session = context.getSession();
@@ -741,7 +843,25 @@ public class WebFunction extends ActionSupport implements ServletRequestAware {
 			ps.setString(5, StudentAccount);
 			ps.executeUpdate();
 			ret.put("ret", "Success");
-		
+			
+			
+			//更信息
+			Statement stmt2;
+			ResultSet rs;
+			stmt2 = conn.createStatement();
+			String sql2 = "select *from student where StudentAccount='" + StudentAccount + "' ";
+			rs = stmt2.executeQuery(sql2);
+			if (rs.next())
+			{
+				Student student = new Student();
+				student.setStudentAccount(rs.getString("StudentAccount"));
+				student.setStudentName(rs.getString("StudentName"));
+				student.setMajor(rs.getString("Major"));
+				student.setCollege(rs.getString("College"));
+				student.setPhone(rs.getString("Phone"));
+				student.setPicture(rs.getString("Picture"));
+				session.put("student", student);
+			}
 		} catch (Exception e) {
 	
 			ret.put("ret", "Fail");
@@ -752,7 +872,7 @@ public class WebFunction extends ActionSupport implements ServletRequestAware {
 		return SUCCESS;
 	}
 	
-	//修改教师信心
+	//淇敼鏁欏笀淇″績
 	public String changeTeacherInf() {
 		ActionContext context = ActionContext.getContext();
 		session = context.getSession();
@@ -761,19 +881,45 @@ public class WebFunction extends ActionSupport implements ServletRequestAware {
 		String College=request.getParameter("college");
 		String Position=request.getParameter("position");
 		String Phone=request.getParameter("phone");
+		String Money=request.getParameter("money");
+		String FSRA=request.getParameter("fsra");
 		Connection conn;
-		System.out.println("b"+TeacherAccount+TeacherName+College+Position+Phone);
+		
  		try {
 			conn=DatabaseConnection.getConnection();
-			String sql="update teacher set TeacherName=?, College=?, Position=?, Phone=? where TeacherAccount=?";
+			String sql="update teacher set TeacherName=?, College=?, Position=?, Phone=?,Money=?,FSRA=? where TeacherAccount=?";
 			PreparedStatement ps= conn.prepareStatement(sql);
 			ps.setString(1, TeacherName);
 			ps.setString(2, College);
 			ps.setString(3, Position);
 			ps.setString(4, Phone);
-			ps.setString(5, TeacherAccount);
+			ps.setString(5, Money);
+			ps.setString(6, FSRA);
+			ps.setString(7 , TeacherAccount);
 			ps.executeUpdate();
 			ret.put("ret", "Success");
+			
+			//更新信息
+			Statement stmt;
+			ResultSet rs;
+			conn = DatabaseConnection.getConnection();
+			stmt = conn.createStatement();
+			String sql1 = "select *from teacher where TeacherAccount='" + TeacherAccount + "'";
+			rs = stmt.executeQuery(sql1);
+			if (rs.next()) 
+			{
+				Teacher teacher = new Teacher();
+				teacher.setTeacherAccount(rs.getString("TeacherAccount"));
+				teacher.setPhone(rs.getString("Phone"));
+				teacher.setPicture(rs.getString("Picture"));
+				teacher.setCollege(rs.getString("College"));
+				teacher.setTeacherName(rs.getString("TeacherName"));
+				teacher.setFSRA(rs.getString("FSRA"));
+				teacher.setMoney(rs.getString("Money"));
+				teacher.setPosition(rs.getString("Position"));
+				teacher.setPhone(rs.getString("Phone"));
+				session.put("teacher", teacher);
+			}	
 		} catch (Exception e) {
 			ret.put("ret", "Fail");
 		}	
