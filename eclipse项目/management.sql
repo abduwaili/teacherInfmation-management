@@ -4,7 +4,7 @@ Source Host     : localhost:3306
 Source Database : management
 Target Host     : localhost:3306
 Target Database : management
-Date: 2017-12-04 12:49:29
+Date: 2017-12-08 10:25:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -61,8 +61,6 @@ CREATE TABLE `arrange` (
 -- ----------------------------
 -- Records of arrange
 -- ----------------------------
-INSERT INTO `arrange` VALUES ('刘宏伟', '42', '1', '1', '14', '30', '16', '0', 'false', '30', '11', '2017', '答辩', 'true', 'Fail', '张永顺', '计算机科学与技术', '17745135600');
-INSERT INTO `arrange` VALUES ('刘宏伟', '44', '1', '1', '00', '00', '09', '59', 'false', '01', '12', '2017', '睡觉', 'true', 'false', '张永顺1212', '计算机科学与技术', '18846419912');
 
 -- ----------------------------
 -- Table structure for schedule
@@ -84,26 +82,18 @@ CREATE TABLE `schedule` (
   PRIMARY KEY (`id`),
   KEY `TeacherAccount_schedule` (`TeacherAccount`),
   CONSTRAINT `TeacherAccount_schedule` FOREIGN KEY (`TeacherAccount`) REFERENCES `teacher` (`TeacherAccount`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of schedule
 -- ----------------------------
-INSERT INTO `schedule` VALUES ('1', '2017', 'false', '12', '1', '8', '10', '12', '00', '小顺子找我', '1', 'true');
-INSERT INTO `schedule` VALUES ('2', '2017', 'true', '12', '02', null, null, null, null, '请小顺子吃饭', '1', 'true');
-INSERT INTO `schedule` VALUES ('3', '2017', 'false', '12', '09', '11', '03', '05', '06', '出差', '1', 'true');
-INSERT INTO `schedule` VALUES ('4', '2017', 'false', '12', '01', '11', '11', '15', '02', '国际会议', '1', 'false');
-INSERT INTO `schedule` VALUES ('5', '2017', 'true', '12', '12', null, null, null, null, '研究863', '1', 'false');
-INSERT INTO `schedule` VALUES ('6', '2017', 'false', '12', '05', '02', '56', '06', '52', '早饭', '1', 'true');
-INSERT INTO `schedule` VALUES ('7', '2017', 'false', '12', '03', '08', '02', '12', '32', '睡觉', '1', 'true');
-INSERT INTO `schedule` VALUES ('8', '2017', 'false', '12', '02', '01', '01', '02', '02', '睡觉', '1', 'true');
 
 -- ----------------------------
 -- Table structure for student
 -- ----------------------------
 DROP TABLE IF EXISTS `student`;
 CREATE TABLE `student` (
-  `Picture` varchar(255) DEFAULT NULL,
+  `Picture` varchar(255) DEFAULT 'http://tongtong-teacherorder.stor.sinaapp.com/student-img/me.jpg',
   `StudentAccount` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL,
   `StudentName` varchar(255) NOT NULL,
@@ -119,7 +109,8 @@ CREATE TABLE `student` (
 -- ----------------------------
 -- Records of student
 -- ----------------------------
-INSERT INTO `student` VALUES ('images/1.jpg', '1', '1', '张永顺1212', '计算机科学与技术', '计算机学院', '2015', '18846419912', null, 'True');
+INSERT INTO `student` VALUES ('http://tongtong-teacherorder.stor.sinaapp.com/student-img/1.jpg', '1', '1', '张永顺1212', '计算机科学与技术', '计算机学院', '2015', '18846419912', '2696272844@qq.com', 'True');
+INSERT INTO `student` VALUES ('http://tongtong-teacherorder.stor.sinaapp.com/student-img/2.jpg', '2', '2', '2', '2', '2', null, '2', null, 'True');
 
 -- ----------------------------
 -- Table structure for teacher
@@ -131,7 +122,7 @@ CREATE TABLE `teacher` (
   `TeacherAccount` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL,
   `TeacherName` varchar(255) NOT NULL,
-  `Picture` varchar(255) DEFAULT NULL,
+  `Picture` varchar(255) DEFAULT 'http://tongtong-teacherorder.stor.sinaapp.com/teacher-img/me.jpg',
   `College` varchar(255) DEFAULT NULL,
   `Position` varchar(255) DEFAULT NULL,
   `ResearchDirection` varchar(255) DEFAULT NULL,
@@ -146,8 +137,8 @@ CREATE TABLE `teacher` (
 -- ----------------------------
 -- Records of teacher
 -- ----------------------------
-INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/刘宏伟/20400972?fr=aladdin', '10000000', '1', '1', '刘宏伟', 'images/teacher/1.jpg', '计算机学院', '哈尔滨工业大学计算机科学与技术学院教授', '计算机', '刘宏伟，博士，教授，博士生导师，哈工大计算机科学与技术学院计算机硬件基础教研室主任，中国计算机学会高级会员，中国计算机学会体系结构专业委员会常委、中国计算机学会容错计算专业委员会专委。', '国家一等奖', '18846419912', '10000001@qq.com', 'True');
-INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/战德臣/1937013?fr=aladdin', '100', '2', '2', '战德臣', 'images/zhandechen.jpg', '计算机学院', '哈尔滨工业大学计算机科学与技术学院教授', '计算思', '战德臣，国家工业自动化系统与集成标准化技术委员会委员 黑龙江省制造业信息化专家组成员 国家863/CIMS主题企业管理与电子商务系统专题工作组成员。', '国家一等奖', '18846419912', '10000001@qq.com', 'True');
-INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/姜守旭/10900364?fr=aladdin', '100', '4', '4', '姜守旭', 'images/jiangshouxu.jpg', '计算机学院', '哈尔滨工业大学计算机科学与技术学院教授', '计算机', '中国计算机学会高级会员\r\nYOCSEF哈尔滨学术委员会委员\r\n“计算机科学与技术核心课程”国家级教学团队成员\r\n中国民主促进会会员\r\n哈尔滨市南岗区第12届政协委员', 'a', '18846419912', '10000001@qq.com', 'True');
-INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/王义和/46153?fr=aladdin', '100', '5', '5', '王义和', 'images/wangyihe.jpg', '计算机学院', '哈尔滨工业大学计算机科学与技术学院教授', '就三级', '王义和，哈尔滨工业大学计算机教授。主讲集合与图论、形式语言、组合数学等计算机基础理论、专业理论。', 'b', '18846419912', '10000001@qq.com', 'True');
-INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/唐朔飞/5718942?fr=aladdin', '100', '6', '6', '唐朔飞', 'images/tangshuofei.jpg', '计算机学院', '哈尔滨工业大学计算机科学与技术学院教授', '计算机', '第八、九届哈尔滨市政治协商委员会委员，现任校、院教学督导组成员。1999年被评为哈工大“十佳三育人”标兵。自1986年获哈工大首届教学一等奖后，又获得各级各类教学奖励18次，2000年获黑龙江省教学成果一等奖。', 'c', '18846419912', '10000001@qq.com', 'True');
+INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/刘宏伟/20400972?fr=aladdin', '10000000', '1', '1', '刘宏伟', 'http://tongtong-teacherorder.stor.sinaapp.com/teacher-img/1.jpg', '计算机学院', '哈尔滨工业大学计算机科学与技术学院教授', '计算机', '刘宏伟，博士，教授，博士生导师，哈工大计算机科学与技术学院计算机硬件基础教研室主任，中国计算机学会高级会员，中国计算机学会体系结构专业委员会常委、中国计算机学会容错计算专业委员会专委。', '国家一等奖', '18846419912', '10000001@qq.com', 'True');
+INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/战德臣/1937013?fr=aladdin', '100', '2', '2', '战德臣', 'http://tongtong-teacherorder.stor.sinaapp.com/teacher-img/me.jpg', '计算机学院', '哈尔滨工业大学计算机科学与技术学院教授', '计算思', '战德臣，国家工业自动化系统与集成标准化技术委员会委员 黑龙江省制造业信息化专家组成员 国家863/CIMS主题企业管理与电子商务系统专题工作组成员。', '国家一等奖', '18846419912', '10000001@qq.com', 'True');
+INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/姜守旭/10900364?fr=aladdin', '100', '4', '4', '姜守旭', 'http://tongtong-teacherorder.stor.sinaapp.com/teacher-img/me.jpg', '计算机学院', '哈尔滨工业大学计算机科学与技术学院教授', '计算机', '中国计算机学会高级会员\r\nYOCSEF哈尔滨学术委员会委员\r\n“计算机科学与技术核心课程”国家级教学团队成员\r\n中国民主促进会会员\r\n哈尔滨市南岗区第12届政协委员', 'a', '18846419912', '10000001@qq.com', 'True');
+INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/王义和/46153?fr=aladdin', '100', '5', '5', '王义和', 'http://tongtong-teacherorder.stor.sinaapp.com/teacher-img/me.jpg', '计算机学院', '哈尔滨工业大学计算机科学与技术学院教授', '就三级', '王义和，哈尔滨工业大学计算机教授。主讲集合与图论、形式语言、组合数学等计算机基础理论、专业理论。', 'b', '18846419912', '10000001@qq.com', 'True');
+INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/唐朔飞/5718942?fr=aladdin', '100', '6', '6', '唐朔飞', 'http://tongtong-teacherorder.stor.sinaapp.com/teacher-img/me.jpg', '计算机学院', '哈尔滨工业大学计算机科学与技术学院教授', '计算机', '第八、九届哈尔滨市政治协商委员会委员，现任校、院教学督导组成员。1999年被评为哈工大“十佳三育人”标兵。自1986年获哈工大首届教学一等奖后，又获得各级各类教学奖励18次，2000年获黑龙江省教学成果一等奖。', 'c', '18846419912', '10000001@qq.com', 'True');
