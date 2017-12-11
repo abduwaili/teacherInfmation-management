@@ -183,6 +183,23 @@
 		        	<param name="root">result</param>
 		        	</result>
 	        	</action>
+	        	
+	        		<!--显示用户反馈信息列表-->
+	        	<action  name="HiddenFeedback" class="com.admin.action.AdminAction" method="HiddenFeedback">
+		        	<result type="json">
+		        	<param name="root">result</param>
+		        	</result>
+	        	</action>
+	        	
+	        	
+	        	<!--用户反馈信息信息-->
+	        	<action  name="FeedBack" class="com.struts2.action.WebFunction" method="FeedBack">
+		        	<result type="json">
+		        	<param name="root">result</param>
+		        	</result>
+	        	</action>
+	        	
+	        	
          </package>
 
 </struts>

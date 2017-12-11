@@ -927,12 +927,13 @@
                                     </div>
                                     <div class="row">
                                         <div class="12u">
-                                            <a class="button form-button-submit" href="#">
+                            <!--                 <a class="button form-button-submit" href="#">
                                                 提交
-                                            </a>
-                                            <a class="button button-alt form-button-reset" href="#">
+                                            </a> -->
+                                            <button onclick="FeedBack()"   class="button form-button-submit">提交</button>
+                           <!--                  <a class="button button-alt form-button-reset" href="#">
                                                 清空
-                                            </a>
+                                            </a> -->
                                         </div>
                                     </div>
                                 </div>

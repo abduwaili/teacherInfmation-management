@@ -1,0 +1,232 @@
+-- MySQL dump 10.13  Distrib 5.1.73, for redhat-linux-gnu (x86_64)
+--
+-- Host: 10.67.15.75    Database: app_tongtong
+-- ------------------------------------------------------
+-- Server version	5.6.23-72.1-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `admin`
+--
+
+DROP TABLE IF EXISTS `admin`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `admin` (
+  `Id` int(20) NOT NULL,
+  `AdminName` varchar(20) NOT NULL,
+  `AdminPassword` varchar(20) NOT NULL,
+  `RealName` varchar(20) NOT NULL,
+  `Email` varchar(20) DEFAULT NULL,
+  `Phone` varchar(20) DEFAULT NULL,
+  `Photo` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `admin`
+--
+
+LOCK TABLES `admin` WRITE;
+/*!40000 ALTER TABLE `admin` DISABLE KEYS */;
+INSERT INTO `admin` VALUES (1,'abduwaili','abduwaili','阿卜杜外力','2696272844@qq.com','17745135600',NULL);
+/*!40000 ALTER TABLE `admin` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `arrange`
+--
+
+DROP TABLE IF EXISTS `arrange`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `arrange` (
+  `TeacherName` varchar(255) DEFAULT NULL,
+  `ArrangeId` int(100) NOT NULL AUTO_INCREMENT,
+  `TeacherAccount` varchar(255) NOT NULL,
+  `StudentAccount` varchar(255) NOT NULL,
+  `StartHour` varchar(255) DEFAULT NULL,
+  `StartMinutes` varchar(255) DEFAULT NULL,
+  `EndHour` varchar(255) DEFAULT NULL,
+  `EndMinutes` varchar(255) DEFAULT NULL,
+  `AllDay` varchar(255) DEFAULT NULL,
+  `ArrangeDay` varchar(255) DEFAULT NULL,
+  `ArrangeMonth` varchar(255) DEFAULT NULL,
+  `ArrangeYear` varchar(255) DEFAULT NULL,
+  `ArrangeReason` varchar(255) DEFAULT NULL,
+  `commitornot` varchar(255) DEFAULT NULL,
+  `SuccessFail` varchar(255) DEFAULT NULL,
+  `StudentName` varchar(255) DEFAULT NULL,
+  `StudentMajor` varchar(255) DEFAULT NULL,
+  `StudentPhone` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ArrangeId`),
+  KEY `StudentAccount` (`StudentAccount`),
+  KEY `TeacherAccount_arrange` (`TeacherAccount`),
+  CONSTRAINT `StudentAccount` FOREIGN KEY (`StudentAccount`) REFERENCES `student` (`StudentAccount`),
+  CONSTRAINT `TeacherAccount_arrange` FOREIGN KEY (`TeacherAccount`) REFERENCES `teacher` (`TeacherAccount`)
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `arrange`
+--
+
+LOCK TABLES `arrange` WRITE;
+/*!40000 ALTER TABLE `arrange` DISABLE KEYS */;
+INSERT INTO `arrange` VALUES ('孙长彬',47,'sunchangbin','zhangyongshun','17','17','18','18','false','25','12','2017','圣诞节快乐','true','Success','张永顺','计算机科学与技术','18846419912'),('李想',49,'lixiang','abduwaili','10','14','14','40','false','15','12','2017','请假','true','Success','阿杜','计算机科学与技术','17745135600'),('李想',50,'lixiang','abduwaili','10','14','14','40','false','16','12','2017','请假','true','false','阿杜','计算机科学与技术','17745135600'),('李想',51,'lixiang','abduwaili','10','14','14','40','false','14','12','2017','请假','true','false','阿杜','计算机科学与技术','17745135600'),('刘志明',52,'liuzhiming','abduwaili','10','14','14','40','false','14','12','2017','请假','true','Success','阿杜','计算机科学与技术','17745135600'),('刘志明',53,'liuzhiming','abduwaili','10','14','14','40','false','14','12','2017','请假','true','Fail','阿杜','计算机科学与技术','17745135600'),('孙长彬',54,'sunchangbin','sun','15','00','16','00','false','26','12','2017','院内事务','true','false','sunqianyi','计算机科学与技术','18845788083'),('姜守旭',56,'4','sun','00','00','01','00','false','31','12','2017','无','true','false','sunqianyi','计算机科学与技术','18845788083'),('战德臣',57,'2','wuli','10','00','12','00','false','16','12','2017','学业咨询','true','false','章波','计算机科学与技术','18324500190'),('战德臣',59,'2','WangErXiao','12','23','0','0','false','12','02','2017','答辩','true','false','王小二','计算机科学','1882229991'),('战德臣',60,'2','zhangyongshun','12','12','13','13','false','12','12','2017','测试','true','Success','张永顺','计算机科学及','18846419912');
+/*!40000 ALTER TABLE `arrange` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `feedback`
+--
+
+DROP TABLE IF EXISTS `feedback`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `feedback` (
+  `Id` int(10) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(20) DEFAULT NULL,
+  `Email` varchar(20) DEFAULT NULL,
+  `Subject` varchar(200) DEFAULT NULL,
+  `Datails` varchar(1000) DEFAULT NULL,
+  `View` varchar(10) NOT NULL DEFAULT 'True',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `feedback`
+--
+
+LOCK TABLES `feedback` WRITE;
+/*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
+INSERT INTO `feedback` VALUES (1,'阿杜','2696272844@qq.com','关于管理员功能','建议将用户反馈功能加入到管理员界面！','False'),(2,'张永书','123@qq.com','张永顺','张永顺','False'),(3,'3','3','3','3\n                                            ','False'),(4,'欧海斌','189829994@qq.com','关于字体','网站别使用繁体字！                                            ','False');
+/*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `schedule`
+--
+
+DROP TABLE IF EXISTS `schedule`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `schedule` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Year` varchar(255) DEFAULT 'none',
+  `AllDay` varchar(255) DEFAULT NULL,
+  `Month` varchar(255) DEFAULT 'none',
+  `Day` varchar(255) DEFAULT 'none',
+  `StartHour` varchar(255) DEFAULT 'none',
+  `StartMinutes` varchar(255) DEFAULT 'none',
+  `EndHour` varchar(255) DEFAULT 'none',
+  `EndMinutes` varchar(255) DEFAULT 'none',
+  `Arrange` varchar(255) DEFAULT 'none',
+  `TeacherAccount` varchar(255) NOT NULL DEFAULT 'none',
+  `IsWatch` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `TeacherAccount_schedule` (`TeacherAccount`),
+  CONSTRAINT `TeacherAccount_schedule` FOREIGN KEY (`TeacherAccount`) REFERENCES `teacher` (`TeacherAccount`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `schedule`
+--
+
+LOCK TABLES `schedule` WRITE;
+/*!40000 ALTER TABLE `schedule` DISABLE KEYS */;
+INSERT INTO `schedule` VALUES (10,'2017','false','12','12','08','00','10','00','阿杜预约\r\n:预约理由:举办篮球赛. 联系方式：17745135600','sunchangbin','true'),(11,'2017','false','12','15','10','14','14','40','阿杜预约\r\n:预约理由:请假. 联系方式：17745135600','lixiang','true'),(12,'2017','false','12','14','10','14','14','40','阿杜预约\r\n:预约理由:请假. 联系方式：17745135600','liuzhiming','true'),(13,'2017','false','12','14','10','14','14','40','阿杜预约\r\n:预约理由:请假. 联系方式：17745135600','liuzhiming','true'),(14,'2017','false','12','15','10','14','14','40','阿杜预约\r\n:预约理由:请假. 联系方式：17745135600','lixiang','true'),(16,'2017','false','12','25','17','17','18','18','张永顺预约\r\n:预约理由:圣诞节快乐. 联系方式：18846419912','sunchangbin','true'),(18,'2017','false','12','01','23','00','23','02','kkk','1','true'),(19,'2017','false','12','08','00','00','01','01','aa','1','true'),(21,'2017','false','12','12','12','12','13','13','张永顺预约\r\n:预约理由:测试. 联系方式：18846419912','2','true');
+/*!40000 ALTER TABLE `schedule` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `student`
+--
+
+DROP TABLE IF EXISTS `student`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `student` (
+  `Picture` varchar(255) DEFAULT 'http://tongtong-teacherorder.stor.sinaapp.com/student-img/me.jpg',
+  `StudentAccount` varchar(255) NOT NULL,
+  `Password` varchar(255) NOT NULL,
+  `StudentName` varchar(255) NOT NULL,
+  `Major` varchar(255) DEFAULT NULL,
+  `College` varchar(255) DEFAULT NULL,
+  `Grade` varchar(255) DEFAULT NULL,
+  `Phone` varchar(255) DEFAULT NULL,
+  `Email` varchar(255) DEFAULT NULL,
+  `IsSiginUp` varchar(10) NOT NULL DEFAULT 'False',
+  PRIMARY KEY (`StudentAccount`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `student`
+--
+
+LOCK TABLES `student` WRITE;
+/*!40000 ALTER TABLE `student` DISABLE KEYS */;
+INSERT INTO `student` VALUES ('http://tongtong-teacherorder.stor.sinaapp.com/student-img/1.jpg','1','1','张永顺1212','计算机科学与技术','计算机学院','2015','18846419912','2696272844@qq.com','True'),('http://tongtong-teacherorder.stor.sinaapp.com/student-img/11.jpg','11','11','11','11','11',NULL,'11',NULL,'True'),('http://tongtong-teacherorder.stor.sinaapp.com/student-img/1150310108.jpg','1150310108','lbt123','罗伯特','计算机科学与技术','计算机学院',NULL,'18800428839',NULL,'True'),('http://tongtong-teacherorder.stor.sinaapp.com/student-img/2.jpg','2','2','2','2','2',NULL,'2',NULL,'True'),('http://tongtong-teacherorder.stor.sinaapp.com/student-img/abduwaili.jpg','abduwaili','abduwaili','阿杜','计算机科学与技术','计算机科学与技术',NULL,'17745135600',NULL,'True'),('http://tongtong-teacherorder.stor.sinaapp.com/student-img/sun.jpg','sun','123456','sunqianyi','计算机科学与技术','计算机学院',NULL,'18845788083',NULL,'True'),('http://tongtong-teacherorder.stor.sinaapp.com/student-img/WangErXiao.png','WangErXiao','123456','王小二','计算机科学','计算机学院',NULL,'1882229991',NULL,'True'),('http://tongtong-teacherorder.stor.sinaapp.com/student-img/me.jpg','wuli','123456','章波','计算机科学与技术','计算机',NULL,'18324500190',NULL,'True'),('http://tongtong-teacherorder.stor.sinaapp.com/student-img/zhangyongshun.jpg','zhangyongshun','1314','张永顺','计算机科学及','计算机学院',NULL,'18846419912',NULL,'True');
+/*!40000 ALTER TABLE `student` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `teacher`
+--
+
+DROP TABLE IF EXISTS `teacher`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `teacher` (
+  `Baike` varchar(255) DEFAULT NULL,
+  `Money` varchar(255) DEFAULT NULL,
+  `TeacherAccount` varchar(255) NOT NULL,
+  `Password` varchar(255) NOT NULL,
+  `TeacherName` varchar(255) NOT NULL,
+  `Picture` varchar(255) DEFAULT 'http://tongtong-teacherorder.stor.sinaapp.com/teacher-img/me.jpg',
+  `College` varchar(255) DEFAULT NULL,
+  `Position` varchar(255) DEFAULT NULL,
+  `ResearchDirection` varchar(255) DEFAULT NULL,
+  `Record` varchar(255) DEFAULT NULL,
+  `FSRA` varchar(255) DEFAULT NULL,
+  `Phone` varchar(255) DEFAULT NULL,
+  `Email` varchar(255) DEFAULT NULL,
+  `IsSiginUp` varchar(10) NOT NULL DEFAULT 'False',
+  PRIMARY KEY (`TeacherAccount`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `teacher`
+--
+
+LOCK TABLES `teacher` WRITE;
+/*!40000 ALTER TABLE `teacher` DISABLE KEYS */;
+INSERT INTO `teacher` VALUES ('https://baike.baidu.com/item/刘宏伟/20400972?fr=aladdin','10000000','1','1','刘宏伟','http://tongtong-teacherorder.stor.sinaapp.com/teacher-img/1.jpg','计算机学院','哈尔滨工业大学计算机科学与技术学院教授','计算机','刘宏伟，博士，教授，博士生导师，哈工大计算机科学与技术学院计算机硬件基础教研室主任，中国计算机学会高级会员，中国计算机学会体系结构专业委员会常委、中国计算机学会容错计算专业委员会专委。','国家一等','18846419912','10000001@qq.com','True'),('https://baike.baidu.com/item/战德臣/1937013?fr=aladdin','100','2','2','战德臣','http://tongtong-teacherorder.stor.sinaapp.com/teacher-img/2.jpg','计算机学院','哈尔滨工业大学计算机科学与技术学院教授','计算思','战德臣，国家工业自动化系统与集成标准化技术委员会委员 黑龙江省制造业信息化专家组成员 国家863/CIMS主题企业管理与电子商务系统专题工作组成员。','国家一等奖','18846419912','10000001@qq.com','True'),('https://baike.baidu.com/item/姜守旭/10900364?fr=aladdin','100','4','4','姜守旭','http://tongtong-teacherorder.stor.sinaapp.com/teacher-img/me.jpg','计算机学院','哈尔滨工业大学计算机科学与技术学院教授','计算机','中国计算机学会高级会员\r\nYOCSEF哈尔滨学术委员会委员\r\n“计算机科学与技术核心课程”国家级教学团队成员\r\n中国民主促进会会员\r\n哈尔滨市南岗区第12届政协委员','a','18846419912','10000001@qq.com','True'),('https://baike.baidu.com/item/王义和/46153?fr=aladdin','100','5','5','王义和','http://tongtong-teacherorder.stor.sinaapp.com/teacher-img/me.jpg','计算机学院','哈尔滨工业大学计算机科学与技术学院教授','就三级','王义和，哈尔滨工业大学计算机教授。主讲集合与图论、形式语言、组合数学等计算机基础理论、专业理论。','b','18846419912','10000001@qq.com','True'),('https://baike.baidu.com/item/唐朔飞/5718942?fr=aladdin','100','6','6','唐朔飞','http://tongtong-teacherorder.stor.sinaapp.com/teacher-img/me.jpg','计算机学院','哈尔滨工业大学计算机科学与技术学院教授','计算机','第八、九届哈尔滨市政治协商委员会委员，现任校、院教学督导组成员。1999年被评为哈工大“十佳三育人”标兵。自1986年获哈工大首届教学一等奖后，又获得各级各类教学奖励18次，2000年获黑龙江省教学成果一等奖。','c','18846419912','10000001@qq.com','True'),(NULL,'2323','adu','1313','阿杜','http://tongtong-teacherorder.stor.sinaapp.com/teacher-img/adu.jpg','计算机','教授',NULL,NULL,'wu','18846419912',NULL,'True'),(NULL,'110','gao','gao','高','http://tongtong-teacherorder.stor.sinaapp.com/teacher-img/gao.jpg','计算机','教授',NULL,NULL,'wu','188',NULL,'True'),(NULL,'null','liuzhiming','liuzhiming','刘志铭','http://tongtong-teacherorder.stor.sinaapp.com/teacher-img/me.jpg','计算机科学与技术','助教',NULL,NULL,'null','123456789',NULL,'True'),(NULL,NULL,'lixiang','lixaing','李想','http://tongtong-teacherorder.stor.sinaapp.com/teacher-img/lixiang.jpg','计算机科学与技术','讲师',NULL,NULL,NULL,'18946157240',NULL,'True'),(NULL,NULL,'sunchangbin','sunchangbin','孙长彬','http://tongtong-teacherorder.stor.sinaapp.com/teacher-img/me.jpg','计算机科学与技术','讲师',NULL,NULL,NULL,'86403721',NULL,'True'),(NULL,'1212','zhang','zhang','张永顺','http://tongtong-teacherorder.stor.sinaapp.com/teacher-img/zhang.jpg','计算机','教授',NULL,NULL,'wu','18846419912',NULL,'True'),(NULL,'100','zhangyongshun','1314','张永顺','http://tongtong-teacherorder.stor.sinaapp.com/teacher-img/zhangyongshun.jpg','计算机','1',NULL,NULL,'2','18846419912',NULL,'True'),(NULL,NULL,'路波特','lubote','罗伯特','http://tongtong-teacherorder.stor.sinaapp.com/teacher-img/me.jpg','计算机','校长',NULL,NULL,NULL,'110',NULL,'True');
+/*!40000 ALTER TABLE `teacher` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2017-12-11 23:12:57

@@ -2073,3 +2073,40 @@ function showSeachTeacherSchedule(){
         }
 	});
 }
+
+
+
+
+function FeedBack(){
+	var name=document.getElementById("name").value;
+	var email=document.getElementById("email").value;  
+	var subject=document.getElementById("subject").value;  
+	var message=document.getElementById("message").value;  
+	 $.ajax({
+	        url: "/xaingmu/FeedBack",
+	        data: {
+	        	name:name,
+	        	email:email,
+	        	subject:subject,
+	        	message:message
+	        },
+	        async: false,
+	        type: 'POST',
+	        dataType: 'json',
+	        success: function(data){
+	            var ret = eval("(" + data + ")");
+	            switch (ret['ret']) {
+	                case "Success":
+	                	alert("提交成功,感谢你的反馈！")
+	                    break;
+	                    
+	                case "Fail":
+	                	alert("操作失败，稍后再试");
+	                    break;
+	                    
+	                default:
+	                	alert("发生未知错误，请检查后台");
+	            }
+	        }
+	 });
+}

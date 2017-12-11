@@ -921,9 +921,39 @@ public String changeStudentInf() {
 				session.put("teacher", teacher);
 			}	
 		} catch (Exception e) {
-			ret.put("ret", "Fail");
+			
 		}	
 		
+ 		JSONObject json = JSONObject.fromObject(ret);
+		result = json.toString();
+		return SUCCESS;
+	}
+	
+	
+	
+	public String FeedBack() {
+		String name=request.getParameter("name");
+		String email=request.getParameter("email");
+		String subject=request.getParameter("subject");
+		String message=request.getParameter("message");
+		
+		Connection conn;	
+		try {			 
+				 conn=DatabaseConnection.getConnection();
+				 String sql1="insert into feedback(Name,Email,Subject,Datails)values(?,?,?,?)";
+				 PreparedStatement ps=(PreparedStatement) conn.prepareStatement(sql1);
+				 ps.setString(1, name);
+				 ps.setString(2, email);
+				 ps.setString(3, subject);
+				 ps.setString(4, message);
+				 ps.executeUpdate();
+				 conn.close();
+				 ps.close();
+				 ret.put("ret", "Success");
+		} catch (Exception e) {
+			ret.put("ret", "Fail");
+		}
+
  		JSONObject json = JSONObject.fromObject(ret);
 		result = json.toString();
 		return SUCCESS;

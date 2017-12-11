@@ -19,6 +19,7 @@
 			<li><a href="admin_inf.jsp" target="main_frame">我的个人信息</a></li>
 			<li><a href="students.jsp" target="main_frame">所有学生</a></li>
 			<li><a href="teachers.jsp" target="main_frame">所有教师</a></li>
+			<li><a href="FeedBack.jsp" target="main_frame">用户反馈</a></li>
 			<li><a href="authstr.jsp" target="main_frame">待审核注册用户</a></li>
 		</ul>
 	</div>

@@ -13,7 +13,7 @@ public class DatabaseConnection {
 	{
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-		   	String url="jdbc:mysql://w.rdc.sae.sina.com.cn:3306/app_tongtong?useUnicode=true&characterEncoding=utf-8&useSSL=false";
+		   	String url="jdbc:mysql://w.rdc.sae.sina.com.cn:3307/app_tongtong?useUnicode=true&characterEncoding=utf-8&useSSL=false";
 			conn=DriverManager.getConnection(url, "1y0045wl42", "y4mim02k2l1zxzk0xlyjk3k5yl30023ll0j4k5lm");
 		
 			/*Class.forName("com.mysql.jdbc.Driver").newInstance();

@@ -262,7 +262,26 @@ public class AdminAction extends ActionSupport implements ServletRequestAware{
 		
 	}
 	
+	public String HiddenFeedback() {
+		
+		int Id=Integer.parseInt(request.getParameter("Id"));
 	
+		Connection conn;
+		try {
+			conn=DatabaseConnection.getConnection();
+			String sql="update feedback set View=? where Id=?";
+			PreparedStatement ps= conn.prepareStatement(sql);
+			ps.setString(1, "False");
+			ps.setInt(2, Id);;
+			ps.executeUpdate();
+			ret.put("ret", "Success");
+		} catch (Exception e) {
+			ret.put("ret", "Fail");
+		}	
+		JSONObject json = JSONObject.fromObject(ret);
+		result = json.toString();
+		return SUCCESS;	
+	}
 
 
 

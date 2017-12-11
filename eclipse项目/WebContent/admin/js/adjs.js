@@ -175,3 +175,34 @@ function AddBaike(TeacherAccount)
 	        }
 	 });
 }
+
+function HiddenFeedback(id){
+	var btn1=document.getElementById(id);  
+	 $.ajax({
+	        url: "/xaingmu/HiddenFeedback",
+	        data: {
+	        	Id: id
+	        },
+	        async: false,
+	        type: 'POST',
+	        dataType: 'json',
+	        success: function(data){
+	            var ret = eval("(" + data + ")");
+	            switch (ret['ret']) {
+	                case "Success":
+	                	alert("操作成功，此反馈以后不会显示");
+	                	 btn1.innerHTML = "已处理";
+		                	btn1.style.background = "pink";
+		                	btn1.disabled = true;
+	                    break;
+	                    
+	                case "Fail":
+	                	alert("操作失败，请重试");
+	                    break;
+	                    
+	                default:
+	                	alert("发生未知错误，请检查后台");
+	            }
+	        }
+	 });
+}
