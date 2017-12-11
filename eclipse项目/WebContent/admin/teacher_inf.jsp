@@ -60,7 +60,7 @@
 						<caption><%=rs.getString("TeacherName")+"的个人信息"%></caption>			
 							<tr>
 								<td width="100" rowspan="5" class="tab0">
-									<img src=<%="../"+rs.getString("Picture") %> title=<%=rs.getString("TeacherName") %> style="height:250px; width:200px"/>
+									<img src=<%=rs.getString("Picture") %> title=<%=rs.getString("TeacherName") %> style="height:250px; width:200px"/>
 								</td>
 								<td width="100" class="tab1">账号</td>
 								<td class="tab2" id="TeacherAccount"><%=rs.getString("TeacherAccount") %></td>

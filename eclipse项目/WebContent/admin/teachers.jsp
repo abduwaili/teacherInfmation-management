@@ -59,7 +59,7 @@
 			 %>
 						 	 <tr>
 								<th><%=i%></th>
-								<th><img src=<%="../"+rs.getString("Picture")%> alt="阿杜" title="阿杜" style="height:100px; width:100px"/></th>
+								<th><img src=<%=rs.getString("Picture")%> alt="阿杜" title="阿杜" style="height:100px; width:100px"/></th>
 								<th><%=rs.getString("TeacherAccount")%></th>
 								<th><%=rs.getString("TeacherName")%></th>
 								<th><%=rs.getString("College")%></th>

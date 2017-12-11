@@ -54,7 +54,7 @@
 						<caption><%=student.getStudentName()+"的个人信息"%></caption>			
 							<tr>
 								<td width="200" rowspan="8">
-									<img src=<%="../"+student.getPicture() %> title=<%=student.getStudentName() %> style="height:250px; width:200px"/>
+									<img src=<%=student.getPicture() %> title=<%=student.getStudentName() %> style="height:250px; width:200px"/>
 								</td>
 								<td width="50" class="tab1">账号</td>
 								<td class="tab2"><%=student.getStudentAccount() %></td>
